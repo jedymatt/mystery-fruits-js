@@ -1,81 +1,91 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref } from 'vue';
+
+import { randomUniqueFruits, getRandomUniqueFrom } from '@/lib/fruits.js'
+import { countCorrectFruits, countCorrectFruitsOrder } from '@/lib/functions.js'
+const fruits = randomUniqueFruits(6)
+const answer = getRandomUniqueFrom(fruits, 3)
+
+const availableAttempts = ref(6)
+const selectedFruits = ref([])
+const history = ref([])
+
+function selectFruit(fruit) {
+  if (selectedFruits.value.length < 3) {
+    if (selectedFruits.value.includes(fruit)) return
+    selectedFruits.value.push(fruit)
+  }
+
+  // check if the answer is correct
+  if (countCorrectFruits(answer, selectedFruits.value) === 3) {
+    history.value.push({
+      selectedFruits: selectedFruits.value,
+      correct: true
+    })
+  } else {
+    history.value.push({
+      selectedFruits: selectedFruits.value,
+      correct: false
+    })
+  }
+}
+
+function unselectFruit(fruit) {
+  selectedFruits.value = selectedFruits.value.filter(f => f !== fruit)
+}
+
+function isFruitSelected(fruit) {
+  return selectedFruits.value.includes(fruit)
+}
+
+function checkAnswer() {
+  const correctFruits = countCorrectFruits(answer, selectedFruits.value)
+  const correctFruitsOrder = countCorrectFruitsOrder(answer, selectedFruits.value)
+  const correct = correctFruits === 3 && correctFruitsOrder === 3
+  if (correct) {
+    selectedFruits.value = []
+    availableAttempts.value = 6
+  } else {
+    availableAttempts.value--
+  }
+}
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div class="min-h-screen">
+    <div class="container p-12">
+      <div class="grid grid-cols-3 gap-6">
+        <button @click="selectFruit(fruit)" v-for="fruit in fruits"
+          :class="isFruitSelected(fruit) ? 'border-gray-700' : ''"
+          class="border-2 bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg">
+          {{ fruit }}
+        </button>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      </div>
+
+      <div class="mt-4">
+        <div class="rounded-md border border-gray-200 p-12">
+          <div class="grid grid-cols-3 gap-6">
+            <button @click="unselectFruit(fruit)" v-for="fruit in selectedFruits"
+              class="bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg">
+              {{ fruit }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- check answer -->
+      <div class="mt-4">
+        <button @click="checkAnswer()" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg">
+          Check answer
+        </button>
+        answer:
+        <span class="block" v-for="fruit in answer">{{ fruit }}</span>
+        <!-- display attempts -->
+        <div class="mt-4">
+          {{ availableAttempts }}
+        </div>
+      </div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
-
-<style>
-@import './assets/base.css';
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
-}
-
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-}
-</style>
