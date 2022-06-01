@@ -1,4 +1,4 @@
-# mystery-fruits-js
+# mystery-fruits-js (in development)
 
 This template should help get you started developing with Vue 3 in Vite.
 
