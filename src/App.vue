@@ -55,7 +55,7 @@ function isCorrectAnswer() {
 }
 
 function addSelectedFruitsToHistory() {
-  history.value.push({
+  history.value.unshift({
     selectedFruits: selectedFruits.value,
     correctFruits: countCorrectFruits(answer, selectedFruits.value),
     correctFruitsOrder: countCorrectFruitsOrder(answer, selectedFruits.value),
