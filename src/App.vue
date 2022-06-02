@@ -19,6 +19,7 @@ function selectFruit(fruit) {
   if (selectedFruits.value.length === 3) {
     setTimeout(() => {
       checkAnswer();
+      addSelectedFruitsToHistory();
       clearSelectedFruits();
     }, 500);
   }
@@ -41,6 +42,7 @@ function checkAnswer() {
   if (correct) {
     selectedFruits.value = []
     availableAttempts.value = 6
+    history.value = []
   } else {
     availableAttempts.value--
   }
@@ -50,6 +52,14 @@ function isCorrectAnswer() {
   const correctFruits = countCorrectFruits(answer, selectedFruits.value)
   const correctFruitsOrder = countCorrectFruitsOrder(answer, selectedFruits.value)
   return correctFruits === 3 && correctFruitsOrder === 3
+}
+
+function addSelectedFruitsToHistory() {
+  history.value.push({
+    selectedFruits: selectedFruits.value,
+    correctFruits: countCorrectFruits(answer, selectedFruits.value),
+    correctFruitsOrder: countCorrectFruitsOrder(answer, selectedFruits.value),
+  })
 }
 
 onMounted(() => {
@@ -81,10 +91,24 @@ onMounted(() => {
           </div>
         </div>
       </div>
-
-      <!-- display attempts -->
       <div class="mt-4">
         Remaining attempts: {{ availableAttempts }}
+      </div>
+      <div class="mt-4">
+        History:
+        <div class="grid grid-flow-row gap-6">
+          <div v-for="attempt in history" :key="attempt">
+            Correct Fruits: {{ attempt.correctFruits }}, Correct Fruits Order: {{ attempt.correctFruitsOrder }}
+            <div class="mt-1">
+              <div class="grid grid-cols-3 gap-6">
+                <button v-for="selectedFruit in attempt.selectedFruits" :key="selectedFruit" disabled
+                  class="bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg">
+                  {{ selectedFruit }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
