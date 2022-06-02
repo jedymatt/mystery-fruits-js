@@ -56,7 +56,7 @@ function checkAnswer() {
   <div class="min-h-screen">
     <div class="container p-12">
       <div class="grid grid-cols-3 gap-6">
-        <button @click="selectFruit(fruit)" v-for="fruit in fruits"
+        <button @click="selectFruit(fruit)" v-for="fruit in fruits" :key="fruit"
           :class="isFruitSelected(fruit) ? 'border-gray-700' : ''"
           class="border-2 bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg">
           {{ fruit }}
@@ -67,7 +67,7 @@ function checkAnswer() {
       <div class="mt-4">
         <div class="rounded-md border border-gray-200 p-12">
           <div class="grid grid-cols-3 gap-6">
-            <button @click="unselectFruit(fruit)" v-for="fruit in selectedFruits"
+            <button @click="unselectFruit(fruit)" v-for="fruit in selectedFruits" :key="fruit"
               class="bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg">
               {{ fruit }}
             </button>
@@ -80,7 +80,7 @@ function checkAnswer() {
           Check answer
         </button>
         answer:
-        <span class="block" v-for="fruit in answer">{{ fruit }}</span>
+        <span class="block" v-for="fruit in answer" :key="fruit">{{ fruit }}</span>
         <!-- display attempts -->
         <div class="mt-4">
           {{ availableAttempts }}
