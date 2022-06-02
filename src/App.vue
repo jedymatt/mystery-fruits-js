@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 import { randomUniqueFruits, getRandomUniqueFrom } from '@/lib/fruits.js'
 import { countCorrectFruits, countCorrectFruitsOrder } from '@/lib/functions.js'
@@ -16,18 +16,16 @@ function selectFruit(fruit) {
     selectedFruits.value.push(fruit)
   }
 
-  // check if the answer is correct
-  if (countCorrectFruits(answer, selectedFruits.value) === 3) {
-    history.value.push({
-      selectedFruits: selectedFruits.value,
-      correct: true
-    })
-  } else {
-    history.value.push({
-      selectedFruits: selectedFruits.value,
-      correct: false
-    })
+  if (selectedFruits.value.length === 3) {
+    setTimeout(() => {
+      checkAnswer();
+      clearSelectedFruits();
+    }, 500);
   }
+}
+
+function clearSelectedFruits() {
+  selectedFruits.value = []
 }
 
 function unselectFruit(fruit) {
@@ -39,9 +37,7 @@ function isFruitSelected(fruit) {
 }
 
 function checkAnswer() {
-  const correctFruits = countCorrectFruits(answer, selectedFruits.value)
-  const correctFruitsOrder = countCorrectFruitsOrder(answer, selectedFruits.value)
-  const correct = correctFruits === 3 && correctFruitsOrder === 3
+  const correct = isCorrectAnswer()
   if (correct) {
     selectedFruits.value = []
     availableAttempts.value = 6
@@ -50,6 +46,16 @@ function checkAnswer() {
   }
 }
 
+function isCorrectAnswer() {
+  const correctFruits = countCorrectFruits(answer, selectedFruits.value)
+  const correctFruitsOrder = countCorrectFruitsOrder(answer, selectedFruits.value)
+  return correctFruits === 3 && correctFruitsOrder === 3
+}
+
+onMounted(() => {
+  console.log(`Answer: ${answer}`)
+});
+
 </script>
 
 <template>
@@ -57,35 +63,30 @@ function checkAnswer() {
     <div class="container p-12">
       <div class="grid grid-cols-3 gap-6">
         <button @click="selectFruit(fruit)" v-for="fruit in fruits" :key="fruit"
-          :class="isFruitSelected(fruit) ? 'border-gray-700' : ''"
-          class="border-2 bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg">
+          :class="{ 'bg-gray-500 text-white': isFruitSelected(fruit) }"
+          class="bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg">
           {{ fruit }}
         </button>
-
       </div>
 
       <div class="mt-4">
         <div class="rounded-md border border-gray-200 p-12">
           <div class="grid grid-cols-3 gap-6">
-            <button @click="unselectFruit(fruit)" v-for="fruit in selectedFruits" :key="fruit"
-              class="bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg">
+            <button @click="unselectFruit(fruit)" v-for="fruit in selectedFruits" :key="fruit" :class="{
+              'bg-red-300': selectedFruits.length === 3 && !isCorrectAnswer(),
+              'bg-green-300': selectedFruits.length === 3 && isCorrectAnswer()
+            }" class="bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg">
               {{ fruit }}
             </button>
           </div>
         </div>
       </div>
-      <!-- check answer -->
+
+      <!-- display attempts -->
       <div class="mt-4">
-        <button @click="checkAnswer()" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg">
-          Check answer
-        </button>
-        answer:
-        <span class="block" v-for="fruit in answer" :key="fruit">{{ fruit }}</span>
-        <!-- display attempts -->
-        <div class="mt-4">
-          {{ availableAttempts }}
-        </div>
+        Remaining attempts: {{ availableAttempts }}
       </div>
+
     </div>
   </div>
 </template>
