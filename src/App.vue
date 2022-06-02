@@ -34,7 +34,6 @@ function unselectFruit(fruit) {
 }
 
 function isFruitSelected(fruit) {
-  console.log(`selected fruit: ${fruit} = ${selectedFruits.value.includes(fruit)}`)
   return selectedFruits.value.includes(fruit)
 }
 
@@ -73,9 +72,12 @@ onMounted(() => {
   <div class="min-h-screen">
     <div class="container md:p-12 p-2">
       <div class="grid grid-cols-3 gap-6">
-        <button @click="selectFruit(fruit)" v-for="fruit in fruits" :key="fruit" :class="{
-          'bg-gray-700 text-blue-50': isFruitSelected(fruit),
-        }" class=" bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg">
+        <button @click="selectFruit(fruit)" v-for="fruit in fruits" :key="fruit" :class="[
+          'bg-gray-200 text-gray-700  font-bold py-2 px-4 rounded-lg',
+          {
+            'bg-gray-500 text-white': isFruitSelected(fruit),
+          },
+        ]">
           {{ fruit }}
         </button>
       </div>
@@ -83,10 +85,13 @@ onMounted(() => {
       <div class="mt-4">
         <div class="rounded-md border border-gray-200 md:p-12 p-2">
           <div class="grid grid-cols-3 gap-6">
-            <button @click="unselectFruit(fruit)" v-for="fruit in selectedFruits" :key="fruit" :class="{
-              'bg-red-300': selectedFruits.length === 3 && !isCorrectAnswer(),
-              'bg-green-300': selectedFruits.length === 3 && isCorrectAnswer()
-            }" class="bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg">
+            <button @click="unselectFruit(fruit)" v-for="fruit in selectedFruits" :key="fruit" :class="[
+              'bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg',
+              {
+                'bg-red-300': selectedFruits.length === 3 && !isCorrectAnswer(),
+                'bg-green-300': selectedFruits.length === 3 && isCorrectAnswer(),
+              },
+            ]">
               {{ fruit }}
             </button>
           </div>
