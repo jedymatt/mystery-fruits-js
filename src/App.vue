@@ -70,7 +70,7 @@ onMounted(() => {
 
 <template>
   <div class="min-h-screen">
-    <div class="container p-12">
+    <div class="container md:p-12 p-2">
       <div class="grid grid-cols-3 gap-6">
         <button @click="selectFruit(fruit)" v-for="fruit in fruits" :key="fruit"
           :class="{ 'bg-gray-500 text-white': isFruitSelected(fruit) }"
@@ -80,7 +80,7 @@ onMounted(() => {
       </div>
 
       <div class="mt-4">
-        <div class="rounded-md border border-gray-200 p-12">
+        <div class="rounded-md border border-gray-200 md:p-12 p-2">
           <div class="grid grid-cols-3 gap-6">
             <button @click="unselectFruit(fruit)" v-for="fruit in selectedFruits" :key="fruit" :class="{
               'bg-red-300': selectedFruits.length === 3 && !isCorrectAnswer(),
