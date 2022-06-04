@@ -3,6 +3,8 @@ import { ref, onMounted } from 'vue';
 
 import { randomUniqueFruits, getRandomUniqueFrom } from '@/lib/fruits.js'
 import { countCorrectFruits, countCorrectFruitsOrder } from '@/lib/functions.js'
+import HistorySection from './components/HistorySection.vue';
+import FruitButton from './components/FruitButton.vue';
 const fruits = randomUniqueFruits(6)
 const answer = getRandomUniqueFrom(fruits, 3)
 
@@ -72,14 +74,16 @@ onMounted(() => {
   <div class="min-h-screen">
     <div class="container md:p-12 p-2">
       <div class="grid grid-cols-3 gap-6">
-        <button @click="selectFruit(fruit)" v-for="fruit in fruits" :key="fruit" :class="[
-          'bg-gray-200 text-gray-700  font-bold py-2 px-4 rounded-lg',
-          {
-            'bg-gray-500 text-white': isFruitSelected(fruit),
-          },
-        ]">
-          {{ fruit }}
-        </button>
+<!--        <button @click="selectFruit(fruit)" v-for="fruit in fruits" :key="fruit" :class="[-->
+<!--          'bg-gray-200 text-gray-700  font-bold py-2 px-4 rounded-lg',-->
+<!--          {-->
+<!--            'bg-gray-500 text-white': isFruitSelected(fruit),-->
+<!--          },-->
+<!--        ]">-->
+<!--          {{ fruit }}-->
+<!--        </button>-->
+        <FruitButton v-for="fruit in fruits" :key="fruit" :fruit="fruit" @click="selectFruit(fruit)"
+        class="hover:cursor-pointer bg-gray-200"></FruitButton>
       </div>
 
       <div class="mt-4">
@@ -101,20 +105,7 @@ onMounted(() => {
         Remaining attempts: {{ availableAttempts }}
       </div>
       <div class="mt-4">
-        History:
-        <div class="grid grid-flow-row gap-6">
-          <div v-for="attempt in history" :key="attempt">
-            Correct Fruits: {{ attempt.correctFruits }}, Correct Fruits Order: {{ attempt.correctFruitsOrder }}
-            <div class="mt-1">
-              <div class="grid grid-cols-3 gap-6">
-                <button v-for="selectedFruit in attempt.selectedFruits" :key="selectedFruit" disabled
-                  class="bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg">
-                  {{ selectedFruit }}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <HistorySection :history="history" />
       </div>
 
     </div>
