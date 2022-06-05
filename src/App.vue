@@ -1,8 +1,8 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 
-import {randomUniqueFruits, getRandomUniqueFrom} from '@/lib/fruits.js';
-import {countCorrectFruits, countCorrectFruitsOrder} from '@/lib/functions.js';
+import { randomUniqueFruits, getRandomUniqueFrom } from '@/lib/fruits.js';
+import { countCorrectFruits, countCorrectFruitsOrder } from '@/lib/functions.js';
 import HistorySection from './components/HistorySection.vue';
 import FruitButton from './components/FruitButton.vue';
 
@@ -76,7 +76,7 @@ onMounted(() => {
     <div class="container md:p-12 p-2">
       <div class="grid grid-cols-3 gap-6">
         <FruitButton v-for="fruit in fruits" :key="fruit" :fruit="fruit" @click="selectFruit(fruit)"
-                     :selected-index="getSelectedFruitIndex(fruit)"/>
+          :selected-index="getSelectedFruitIndex(fruit)" />
       </div>
 
       <div class="mt-4">
@@ -98,7 +98,7 @@ onMounted(() => {
         Remaining attempts: {{ availableAttempts }}
       </div>
       <div class="mt-4">
-        <HistorySection :history="history"/>
+        <HistorySection :history="history" />
       </div>
 
       <span id="credits" class="text-3xl font-bold">Credits:</span>
