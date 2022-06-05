@@ -29,7 +29,7 @@ function isSelected() {
       {{ fruit }}
     </div>
     <div v-if="isSelected()"
-      class="absolute top-2 right-2 text-gray-700 border-2 border-gray-400 rounded-full p-0.5 flex items-center justify-center h-6 w-6 bg-white">
+      class="absolute top-2 right-2 text-gray-700 border border-gray-400 rounded-full flex items-center justify-center h-5 w-5 bg-white">
       <span class="text-xs font-medium text-gray-700">{{ getSelectedIndex() }}</span>
     </div>
   </div>
