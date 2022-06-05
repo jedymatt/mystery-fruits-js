@@ -22,9 +22,8 @@ function isSelected() {
 </script>
 
 <template>
-  <div class="relative flex flex-col gap-1 p-2 items-center hover:cursor-pointer hover:bg-gray-100 rounded-lg" :class="{
-    'bg-gray-200': isSelected(),
-  }">
+  <div class="relative flex flex-col gap-1 p-2 items-center hover:cursor-pointer rounded-lg"
+    :class="[isSelected() ? 'bg-gray-200' : 'hover:bg-gray-100']">
     <img :src="imageUrl" :alt="`${fruit} image`" class="h-16 w-16 md:h-32 md:w-32">
     <div class="text-xs uppercase font-semibold">
       {{ fruit }}
