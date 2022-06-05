@@ -9,7 +9,6 @@ const fruits = [
     'cherry',
     'peach',
     'pineapple',
-    'plum',
     'mango',
     'papaya',
     'coconut',

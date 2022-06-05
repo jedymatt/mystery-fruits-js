@@ -1,10 +1,11 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import {ref, onMounted} from 'vue';
 
-import { randomUniqueFruits, getRandomUniqueFrom } from '@/lib/fruits.js'
-import { countCorrectFruits, countCorrectFruitsOrder } from '@/lib/functions.js'
+import {randomUniqueFruits, getRandomUniqueFrom} from '@/lib/fruits.js';
+import {countCorrectFruits, countCorrectFruitsOrder} from '@/lib/functions.js';
 import HistorySection from './components/HistorySection.vue';
 import FruitButton from './components/FruitButton.vue';
+
 const fruits = randomUniqueFruits(6)
 const answer = getRandomUniqueFrom(fruits, 3)
 
@@ -35,10 +36,6 @@ function unselectFruit(fruit) {
   selectedFruits.value = selectedFruits.value.filter(f => f !== fruit)
 }
 
-function isFruitSelected(fruit) {
-  return selectedFruits.value.includes(fruit)
-}
-
 function checkAnswer() {
   const correct = isCorrectAnswer()
   if (correct) {
@@ -64,6 +61,10 @@ function addSelectedFruitsToHistory() {
   })
 }
 
+function getSelectedFruitIndex(fruit) {
+  return selectedFruits.value.indexOf(fruit)
+}
+
 onMounted(() => {
   console.log(`Answer: ${answer}`)
 });
@@ -74,16 +75,8 @@ onMounted(() => {
   <div class="min-h-screen">
     <div class="container md:p-12 p-2">
       <div class="grid grid-cols-3 gap-6">
-<!--        <button @click="selectFruit(fruit)" v-for="fruit in fruits" :key="fruit" :class="[-->
-<!--          'bg-gray-200 text-gray-700  font-bold py-2 px-4 rounded-lg',-->
-<!--          {-->
-<!--            'bg-gray-500 text-white': isFruitSelected(fruit),-->
-<!--          },-->
-<!--        ]">-->
-<!--          {{ fruit }}-->
-<!--        </button>-->
         <FruitButton v-for="fruit in fruits" :key="fruit" :fruit="fruit" @click="selectFruit(fruit)"
-        class="hover:cursor-pointer bg-gray-200"></FruitButton>
+                     :selected-index="getSelectedFruitIndex(fruit)"/>
       </div>
 
       <div class="mt-4">
@@ -105,9 +98,32 @@ onMounted(() => {
         Remaining attempts: {{ availableAttempts }}
       </div>
       <div class="mt-4">
-        <HistorySection :history="history" />
+        <HistorySection :history="history"/>
       </div>
 
+      <span id="credits" class="text-3xl font-bold">Credits:</span>
+      <ul class="list-disc list-inside">
+        <li>
+          <a href="https://www.flaticon.com/free-icons/fruit" title="fruit icons">Fruit icons created by Smashicons -
+            Flaticon</a>
+        </li>
+        <li>
+          <a href="https://www.flaticon.com/free-icons/kiwi" title="kiwi icons">Kiwi icons created by AngDiz -
+            Flaticon</a>
+        </li>
+        <li>
+          <a href="https://www.flaticon.com/free-icons/peanut" title="peanut icons">Peanut icons created by wanicon -
+            Flaticon</a>
+        </li>
+        <li>
+          <a href="https://www.flaticon.com/free-icons/mango" title="mango icons">Mango icons created by max.icons -
+            Flaticon</a>
+        </li>
+        <li>
+          <a href="https://www.flaticon.com/free-icons/papaya" title="papaya icons">Papaya icons created by Freepik -
+            Flaticon</a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
