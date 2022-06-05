@@ -11,7 +11,7 @@ const props = defineProps({
 
 const imageUrl = new URL(`../assets/images/${props.fruit}.png`, import.meta.url).href
 
-function getIndex() {
+function getSelectedIndex() {
   return props.selectedIndex + 1;
 }
 
@@ -31,8 +31,8 @@ function isSelected() {
         {{ fruit }}
       </div>
       <div v-if="isSelected()"
-        class="absolute top-2 right-2 text-gray-700 border-2 border-gray-400 rounded-full p-0.5 flex items-center justify-center h-6 w-6">
-        <span class="text-xs font-medium">{{ getIndex(selectedIndex) }}</span>
+        class="absolute top-2 right-2 text-gray-700 border-2 border-gray-400 rounded-full p-0.5 flex items-center justify-center h-6 w-6 bg-white">
+        <span class="text-xs font-medium text-gray-700">{{ getSelectedIndex() }}</span>
       </div>
     </div>
 </template>
