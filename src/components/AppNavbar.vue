@@ -1,13 +1,18 @@
+<script setup>
+import { RouterLink } from 'vue-router';
+</script>
+
 <template>
     <nav>
         <div class="px-2 py-4 flex items-center justify-between">
             <div>
-                <a href="/" class="font-bold text-xl">Mystery Fruits</a>
+                <RouterLink to="/"  class="font-bold text-xl">Mystery Fruits</RouterLink>
             </div>
-            <div>
+            <div class="flex items-center gap-4">
+                <RouterLink to="/credits">Credits</RouterLink>
                 <a class="flex items-center gap-1 justify-center"
                     href="https://www.github.com/jedymatt/mystery-fruits-js" target="_blank" rel="noopener noreferrer">
-                    <span class="font-medium">Github</span>
+                    <span>Github</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-github" viewBox="0 0 16 16">
                         <path
