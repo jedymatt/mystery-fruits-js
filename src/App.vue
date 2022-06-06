@@ -5,6 +5,7 @@ import { randomUniqueFruits, getRandomUniqueFrom } from '@/lib/fruits.js';
 import { countCorrectFruits, countCorrectFruitsOrder } from '@/lib/functions.js';
 import HistorySection from './components/HistorySection.vue';
 import FruitButton from './components/FruitButton.vue';
+import AppNavbar from './components/AppNavbar.vue';
 
 const fruits = randomUniqueFruits(6)
 const answer = getRandomUniqueFrom(fruits, 3)
@@ -72,7 +73,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen antialiased">
+    <AppNavbar />
+
     <div class="container md:p-12 p-2">
       <div class="grid grid-cols-3 gap-6">
         <FruitButton v-for="fruit in fruits" :key="fruit" :fruit="fruit" @click="selectFruit(fruit)"
