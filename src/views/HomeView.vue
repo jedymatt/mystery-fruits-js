@@ -5,6 +5,7 @@ import { randomUniqueFruits, getRandomUniqueFrom } from '@/lib/fruits.js';
 import { countCorrectFruits, countCorrectFruitsOrder } from '@/lib/functions.js';
 import HistorySection from '@/components/HistorySection.vue';
 import FruitButton from '@/components/FruitButton.vue';
+import GameOver from '../components/GameOver.vue';
 
 const fruits = randomUniqueFruits(6)
 const answer = getRandomUniqueFrom(fruits, 3)
@@ -65,6 +66,10 @@ function getSelectedFruitIndex(fruit) {
     return selectedFruits.value.indexOf(fruit)
 }
 
+function isGameOver() {
+    return availableAttempts.value === 0
+}
+
 onMounted(() => {
     console.log(`Answer: ${answer}`)
 });
@@ -73,7 +78,7 @@ onMounted(() => {
 <template>
     <main>
         <div class="md:p-12 p-2">
-            <div class="lg:flex lg:flex-row lg:gap-6">
+            <div v-if="!isGameOver()" class="lg:flex lg:flex-row lg:gap-6">
                 <div class="grid grid-cols-3 gap-6">
                     <FruitButton v-for="fruit in fruits" :key="fruit" :fruit="fruit" @click="selectFruit(fruit)"
                         :selected-index="getSelectedFruitIndex(fruit)" />
@@ -103,6 +108,9 @@ onMounted(() => {
                         <HistorySection :history="history" />
                     </div>
                 </div>
+            </div>
+            <div v-if="isGameOver()">
+                <GameOver :answer="answer" />
             </div>
         </div>
     </main>
