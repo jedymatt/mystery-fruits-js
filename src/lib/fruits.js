@@ -38,4 +38,3 @@ export function getRandomUniqueFrom(array, length) {
     }
     return randomIndexes.map(index => array[index])
 }
-
