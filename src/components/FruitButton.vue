@@ -6,6 +6,7 @@ const props = defineProps({
 
   selectedIndex: {
     type: Number,
+    default: -1,
   },
 })
 
