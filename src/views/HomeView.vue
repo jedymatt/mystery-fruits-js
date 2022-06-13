@@ -70,6 +70,16 @@ function isGameOver() {
     return availableAttempts.value === 0
 }
 
+function restartGame() {
+    fruits.value = randomUniqueFruits(6)
+    answer.value = getRandomUniqueFrom(fruits, 3)
+
+    selectedFruits.value = []
+    availableAttempts.value = 6
+    history.value = []
+
+}
+
 onMounted(() => {
     console.log(`Answer: ${answer}`)
 });
@@ -110,7 +120,7 @@ onMounted(() => {
                 </div>
             </div>
             <div v-if="isGameOver()">
-                <GameOver :answer="answer" />
+                <GameOver :answer="answer" :restart-game="restartGame" />
             </div>
         </div>
     </main>
