@@ -67,7 +67,7 @@ function getSelectedFruitIndex(fruit) {
 }
 
 function isGameOver() {
-    return availableAttempts.value === 0
+    return availableAttempts.value <= 0;
 }
 
 function restartGame() {
