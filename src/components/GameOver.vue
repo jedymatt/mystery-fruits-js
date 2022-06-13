@@ -1,23 +1,30 @@
 <script setup>
+import PrimaryButton from '@/components/PrimaryButton.vue';
+import FruitImage from './FruitImage.vue';
+
 defineProps({
     answer: {
         type: Array,
+        required: true,
+    },
+    restartGame: {
+        type: Function,
+        required: true,
     },
 })
-
-function restartGame() {
-    // TODO restart game
-}
 </script>
 
 <template>
-    <div>
+    <div class="flex flex-col items-center justify-center">
         <h1>Game Over</h1>
         <p>You have no more attempts left.</p>
         <p>The correct answer was:</p>
-        <ul>
-            <li v-for="fruit in answer" :key="fruit">{{ fruit }}</li>
-        </ul>
-        <button @click="restartGame()">Restart Game</button>
+
+        <div class="flex flex-wrap flex-row gap-4">
+            <div v-for="fruit in answer" :key="fruit">
+                <FruitImage :fruit="fruit" />
+            </div>
+        </div>
+        <PrimaryButton @click="restartGame()">Restart Game</PrimaryButton>
     </div>
 </template>
