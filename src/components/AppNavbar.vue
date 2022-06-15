@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router';
 
 <template>
     <nav class="text-gray-800">
-        <div class="px-2 py-4 flex gap-2 items-center">
+        <div class="p-2 flex gap-2 items-center">
             <RouterLink to="/" class="font-bold text-xl hover:bg-pink-100 p-2 rounded-md">
                 Mystery Fruits
             </RouterLink>
