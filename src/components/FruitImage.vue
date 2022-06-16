@@ -2,6 +2,7 @@
 const props = defineProps({
     fruit: {
         type: String,
+        required: true
     },
 });
 
