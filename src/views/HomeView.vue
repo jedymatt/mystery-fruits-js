@@ -50,9 +50,9 @@ function checkAnswer() {
     }
 
     if (availableAttempts.value <= 0) {
-       isGameOver.value = true
+        isGameOver.value = true
     }
-        
+
 }
 
 function isCorrectAnswer() {
@@ -77,7 +77,7 @@ function getSelectedFruitIndex(fruit) {
 function restartGame() {
     fruits.value = randomUniqueFruits(6)
     answer.value = getRandomUniqueFrom(fruits.value, 3)
-    
+
     selectedFruits.value = []
     availableAttempts.value = 6
     history.value = []
