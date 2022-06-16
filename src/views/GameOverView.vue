@@ -28,25 +28,34 @@ function isSuccess() {
 </script>
 
 <template>
-    <div class="flex flex-col items-center justify-center">
-        <h1 class="text-pink-500 inline-flex items-center gap-1">
-            Game Over
-            <div class="h-auto w-8 hover:animate-bounce">
-                <TrophyIconVue v-if="isSuccess()" />
-                <HeartCrackIconVue v-else />
-            </div>
-        </h1>
-        <p class="text-gray-800">{{ remark }}</p>
-        <p class="text-gray-800">The correct answer is:</p>
+  <div class="flex flex-col items-center justify-center">
+    <h1 class="text-pink-500 inline-flex items-center gap-1">
+      Game Over
+      <div class="h-auto w-8 hover:animate-bounce">
+        <TrophyIconVue v-if="isSuccess()" />
+        <HeartCrackIconVue v-else />
+      </div>
+    </h1>
+    <p class="text-gray-800">
+      {{ remark }}
+    </p>
+    <p class="text-gray-800">
+      The correct answer is:
+    </p>
 
-        <div class="flex flex-wrap flex-row gap-4">
-            <div v-for="fruit in answer" :key="fruit">
-                <FruitImageVue :fruit="fruit" />
-            </div>
-        </div>
-
-        <div class="mt-4">
-            <PrimaryButtonVue @click="restartGame()">Restart Game</PrimaryButtonVue>
-        </div>
+    <div class="flex flex-wrap flex-row gap-4">
+      <div
+        v-for="fruit in answer"
+        :key="fruit"
+      >
+        <FruitImageVue :fruit="fruit" />
+      </div>
     </div>
+
+    <div class="mt-4">
+      <PrimaryButtonVue @click="restartGame()">
+        Restart Game
+      </PrimaryButtonVue>
+    </div>
+  </div>
 </template>

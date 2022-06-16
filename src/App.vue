@@ -9,11 +9,13 @@ import AppNavbar from '@/components/AppNavbar.vue'
 
     <!-- <RouterView /> -->
     <RouterView v-slot="{ Component }">
-      <Transition name="fade" mode="out-in">
+      <Transition
+        name="fade"
+        mode="out-in"
+      >
         <component :is="Component" />
       </Transition>
     </RouterView>
-
   </div>
 </template>
 

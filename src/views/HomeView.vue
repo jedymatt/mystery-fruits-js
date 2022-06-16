@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 import { countCorrectFruits, countCorrectFruitsOrder } from '@/lib/functions.js';
 import HistorySection from '@/components/HistorySection.vue';
@@ -7,7 +7,6 @@ import FruitButton from '@/components/FruitButton.vue';
 import GameOverView from '@/views/GameOverView.vue';
 import { useFruits } from '../composables/fruits';
 import { useHistory } from '../composables/history';
-import { computed } from '@vue/reactivity';
 
 const { hiddenFruits, randomFruits, resetFruits } = useFruits();
 const { history, addToHistory, clearHistory } = useHistory();
@@ -88,46 +87,62 @@ onMounted(() => {
     console.log(`Answer: ${hiddenFruits.value}`)
 });
 
-const reversedHistory = computed(() => history.value.reverse())
+const reversedHistory = computed(() => history.value.slice().reverse())
 </script>
 
 <template>
-    <main>
-        <div class="md:p-12 p-2">
-            <div v-if="!isGameOver" class="lg:flex lg:flex-row lg:gap-6">
-                <div class="grid grid-cols-3 gap-6">
-                    <FruitButton v-for="fruit in randomFruits" :key="fruit" :fruit="fruit" @click="selectFruit(fruit)"
-                        :selected-index="getSelectedFruitIndex(fruit)" />
-                </div>
-
-                <div>
-                    <div class="mt-4">
-                        <div class="rounded-md border border-gray-200 md:p-12 p-2">
-                            <div class="grid grid-cols-3 gap-6">
-                                <button @click="unselectFruit(fruit)" v-for="fruit in selectedFruits" :key="fruit"
-                                    :class="[
-                                        'bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg',
-                                        {
-                                            'bg-red-300': selectedFruits.length === 3 && !isCorrectAnswer(),
-                                            'bg-green-300': selectedFruits.length === 3 && isCorrectAnswer(),
-                                        },
-                                    ]">
-                                    {{ fruit }}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        Remaining attempts: {{ availableAttempts }}
-                    </div>
-                    <div class="mt-4">
-                        <HistorySection :history="reversedHistory" />
-                    </div>
-                </div>
-            </div>
-            <div v-if="isGameOver">
-                <GameOverView :answer="hiddenFruits" :restart-game="restartGame" :attempts-left="availableAttempts" />
-            </div>
+  <main>
+    <div class="md:p-12 p-2">
+      <div
+        v-if="!isGameOver"
+        class="lg:flex lg:flex-row lg:gap-6"
+      >
+        <div class="grid grid-cols-3 gap-6">
+          <FruitButton
+            v-for="fruit in randomFruits"
+            :key="fruit"
+            :fruit="fruit"
+            @click="selectFruit(fruit)"
+            :selected-index="getSelectedFruitIndex(fruit)"
+          />
         </div>
-    </main>
+
+        <div>
+          <div class="mt-4">
+            <div class="rounded-md border border-gray-200 md:p-12 p-2">
+              <div class="grid grid-cols-3 gap-6">
+                <button
+                  @click="unselectFruit(fruit)"
+                  v-for="fruit in selectedFruits"
+                  :key="fruit"
+                  :class="[
+                    'bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg',
+                    {
+                      'bg-red-300': selectedFruits.length === 3 && !isCorrectAnswer(),
+                      'bg-green-300': selectedFruits.length === 3 && isCorrectAnswer(),
+                    },
+                  ]"
+                >
+                  {{ fruit }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4">
+            Remaining attempts: {{ availableAttempts }}
+          </div>
+          <div class="mt-4">
+            <HistorySection :history="reversedHistory" />
+          </div>
+        </div>
+      </div>
+      <div v-if="isGameOver">
+        <GameOverView
+          :answer="hiddenFruits"
+          :restart-game="restartGame"
+          :attempts-left="availableAttempts"
+        />
+      </div>
+    </div>
+  </main>
 </template>
