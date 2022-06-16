@@ -1,6 +1,6 @@
 <script setup>
-import PrimaryButton from '@/components/PrimaryButton.vue';
-import FruitImage from '@/components/FruitImage.vue';
+import PrimaryButtonVue from '../components/PrimaryButton.vue';
+import FruitImageVue from '../components/FruitImage.vue';
 import TrophyIconVue from '../components/icons/TrophyIcon.vue';
 import HeartCrackIconVue from '../components/icons/HeartCrackIcon.vue';
 
@@ -41,12 +41,12 @@ function isSuccess() {
 
         <div class="flex flex-wrap flex-row gap-4">
             <div v-for="fruit in answer" :key="fruit">
-                <FruitImage :fruit="fruit" />
+                <FruitImageVue :fruit="fruit" />
             </div>
         </div>
 
         <div class="mt-4">
-            <PrimaryButton @click="restartGame()">Restart Game</PrimaryButton>
+            <PrimaryButtonVue @click="restartGame()">Restart Game</PrimaryButtonVue>
         </div>
     </div>
 </template>
