@@ -1,19 +1,19 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
-import { randomUniqueFruits, getRandomUniqueFrom } from '@/lib/fruits.js';
 import { countCorrectFruits, countCorrectFruitsOrder } from '@/lib/functions.js';
 import HistorySection from '@/components/HistorySection.vue';
 import FruitButton from '@/components/FruitButton.vue';
 import GameOverView from '@/views/GameOverView.vue';
+import { useFruits } from '../composables/fruits';
+import { useHistory } from '../composables/history';
+import { computed } from '@vue/reactivity';
 
-const fruits = ref([])
-const answer = ref([])
-
+const { hiddenFruits, randomFruits, resetFruits } = useFruits();
+const { history, addToHistory, clearHistory } = useHistory();
 
 const availableAttempts = ref(6)
 const selectedFruits = ref([])
-const history = ref([])
 const isGameOver = ref(false)
 
 function selectFruit(fruit) {
@@ -56,16 +56,16 @@ function checkAnswer() {
 }
 
 function isCorrectAnswer() {
-    const correctFruits = countCorrectFruits(answer.value, selectedFruits.value)
-    const correctFruitsOrder = countCorrectFruitsOrder(answer.value, selectedFruits.value)
+    const correctFruits = countCorrectFruits(hiddenFruits.value, selectedFruits.value)
+    const correctFruitsOrder = countCorrectFruitsOrder(hiddenFruits.value, selectedFruits.value)
     return correctFruits === 3 && correctFruitsOrder === 3
 }
 
 function addSelectedFruitsToHistory() {
-    history.value.unshift({
+    addToHistory({
         selectedFruits: selectedFruits.value,
-        correctFruits: countCorrectFruits(answer.value, selectedFruits.value),
-        correctFruitsOrder: countCorrectFruitsOrder(answer.value, selectedFruits.value),
+        correctFruits: countCorrectFruits(hiddenFruits.value, selectedFruits.value),
+        correctFruitsOrder: countCorrectFruitsOrder(hiddenFruits.value, selectedFruits.value),
     })
 }
 
@@ -75,22 +75,20 @@ function getSelectedFruitIndex(fruit) {
 
 
 function restartGame() {
-    fruits.value = randomUniqueFruits(6)
-    answer.value = getRandomUniqueFrom(fruits.value, 3)
+    resetFruits();
 
     selectedFruits.value = []
     availableAttempts.value = 6
-    history.value = []
+    clearHistory();
     isGameOver.value = false
-    console.log(`Answer: ${answer.value}`)
+    console.log(`Answer: ${hiddenFruits.value}`)
 }
 
 onMounted(() => {
-    fruits.value = randomUniqueFruits(6)
-    answer.value = getRandomUniqueFrom(fruits.value, 3)
-
-    console.log(`Answer: ${answer.value}`)
+    console.log(`Answer: ${hiddenFruits.value}`)
 });
+
+const reversedHistory = computed(() => history.value.reverse())
 </script>
 
 <template>
@@ -98,7 +96,7 @@ onMounted(() => {
         <div class="md:p-12 p-2">
             <div v-if="!isGameOver" class="lg:flex lg:flex-row lg:gap-6">
                 <div class="grid grid-cols-3 gap-6">
-                    <FruitButton v-for="fruit in fruits" :key="fruit" :fruit="fruit" @click="selectFruit(fruit)"
+                    <FruitButton v-for="fruit in randomFruits" :key="fruit" :fruit="fruit" @click="selectFruit(fruit)"
                         :selected-index="getSelectedFruitIndex(fruit)" />
                 </div>
 
@@ -123,12 +121,12 @@ onMounted(() => {
                         Remaining attempts: {{ availableAttempts }}
                     </div>
                     <div class="mt-4">
-                        <HistorySection :history="history" />
+                        <HistorySection :history="reversedHistory" />
                     </div>
                 </div>
             </div>
             <div v-if="isGameOver">
-                <GameOverView :answer="answer" :restart-game="restartGame" :attempts-left="availableAttempts" />
+                <GameOverView :answer="hiddenFruits" :restart-game="restartGame" :attempts-left="availableAttempts" />
             </div>
         </div>
     </main>
