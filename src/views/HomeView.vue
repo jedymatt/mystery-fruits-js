@@ -16,75 +16,75 @@ const selectedFruits = ref([])
 const isGameOver = ref(false)
 
 function selectFruit(fruit) {
-    if (selectedFruits.value.length < 3) {
-        if (selectedFruits.value.includes(fruit)) return
-        selectedFruits.value.push(fruit)
-    }
+  if (selectedFruits.value.length < 3) {
+    if (selectedFruits.value.includes(fruit)) return
+    selectedFruits.value.push(fruit)
+  }
 
-    if (selectedFruits.value.length === 3) {
-        setTimeout(() => {
-            checkAnswer();
-            addSelectedFruitsToHistory();
-            clearSelectedFruits();
-        }, 500);
-    }
+  if (selectedFruits.value.length === 3) {
+    setTimeout(() => {
+      checkAnswer();
+      addSelectedFruitsToHistory();
+      clearSelectedFruits();
+    }, 500);
+  }
 }
 
 function clearSelectedFruits() {
-    selectedFruits.value = []
+  selectedFruits.value = []
 }
 
 function unselectFruit(fruit) {
-    selectedFruits.value = selectedFruits.value.filter(f => f !== fruit)
+  selectedFruits.value = selectedFruits.value.filter(f => f !== fruit)
 }
 
 function checkAnswer() {
-    const correct = isCorrectAnswer()
-    availableAttempts.value--
+  const correct = isCorrectAnswer()
+  availableAttempts.value--
 
-    if (correct) {
-        selectedFruits.value = []
-        history.value = []
-        isGameOver.value = true
-    }
+  if (correct) {
+    selectedFruits.value = []
+    history.value = []
+    isGameOver.value = true
+  }
 
-    if (availableAttempts.value <= 0) {
-        isGameOver.value = true
-    }
+  if (availableAttempts.value <= 0) {
+    isGameOver.value = true
+  }
 
 }
 
 function isCorrectAnswer() {
-    const correctFruits = countCorrectFruits(hiddenFruits.value, selectedFruits.value)
-    const correctFruitsOrder = countCorrectFruitsOrder(hiddenFruits.value, selectedFruits.value)
-    return correctFruits === 3 && correctFruitsOrder === 3
+  const correctFruits = countCorrectFruits(hiddenFruits.value, selectedFruits.value)
+  const correctFruitsOrder = countCorrectFruitsOrder(hiddenFruits.value, selectedFruits.value)
+  return correctFruits === 3 && correctFruitsOrder === 3
 }
 
 function addSelectedFruitsToHistory() {
-    addToHistory({
-        selectedFruits: selectedFruits.value,
-        correctFruits: countCorrectFruits(hiddenFruits.value, selectedFruits.value),
-        correctFruitsOrder: countCorrectFruitsOrder(hiddenFruits.value, selectedFruits.value),
-    })
+  addToHistory({
+    selectedFruits: selectedFruits.value,
+    correctFruits: countCorrectFruits(hiddenFruits.value, selectedFruits.value),
+    correctFruitsOrder: countCorrectFruitsOrder(hiddenFruits.value, selectedFruits.value),
+  })
 }
 
 function getSelectedFruitIndex(fruit) {
-    return selectedFruits.value.indexOf(fruit)
+  return selectedFruits.value.indexOf(fruit)
 }
 
 
 function restartGame() {
-    resetFruits();
+  resetFruits();
 
-    selectedFruits.value = []
-    availableAttempts.value = 6
-    clearHistory();
-    isGameOver.value = false
-    console.log(`Answer: ${hiddenFruits.value}`)
+  selectedFruits.value = []
+  availableAttempts.value = 6
+  clearHistory();
+  isGameOver.value = false
+  console.log(`Answer: ${hiddenFruits.value}`)
 }
 
 onMounted(() => {
-    console.log(`Answer: ${hiddenFruits.value}`)
+  console.log(`Answer: ${hiddenFruits.value}`)
 });
 
 const reversedHistory = computed(() => history.value.slice().reverse())
@@ -102,8 +102,8 @@ const reversedHistory = computed(() => history.value.slice().reverse())
             v-for="fruit in randomFruits"
             :key="fruit"
             :fruit="fruit"
-            @click="selectFruit(fruit)"
             :selected-index="getSelectedFruitIndex(fruit)"
+            @click="selectFruit(fruit)"
           />
         </div>
 
@@ -112,7 +112,6 @@ const reversedHistory = computed(() => history.value.slice().reverse())
             <div class="rounded-md border border-gray-200 md:p-12 p-2">
               <div class="grid grid-cols-3 gap-6">
                 <button
-                  @click="unselectFruit(fruit)"
                   v-for="fruit in selectedFruits"
                   :key="fruit"
                   :class="[
@@ -122,6 +121,7 @@ const reversedHistory = computed(() => history.value.slice().reverse())
                       'bg-green-300': selectedFruits.length === 3 && isCorrectAnswer(),
                     },
                   ]"
+                  @click="unselectFruit(fruit)"
                 >
                   {{ fruit }}
                 </button>
