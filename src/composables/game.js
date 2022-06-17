@@ -1,9 +1,8 @@
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useFruits } from "./fruits";
 import { useHistory } from "./history";
 
 import { countMatchingArray, countMatchingArrayOrder } from "../lib/counter";
-import { computed } from "@vue/reactivity";
 
 export function useGame() {
   const { randomFruits, hiddenFruits, resetFruits } = useFruits();
@@ -16,7 +15,7 @@ export function useGame() {
     return (
       remainingGuessAttempts.value <= 0 ||
       countMatchingArrayOrder(selectedFruits.value, hiddenFruits.value) ===
-        hiddenFruits.value.length
+      hiddenFruits.value.length
     );
   });
 
