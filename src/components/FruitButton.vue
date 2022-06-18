@@ -9,6 +9,10 @@ const props = defineProps({
     type: Number,
     default: -1,
   },
+  isDisabled: {
+    type: Boolean,
+    default: false,
+  }
 })
 
 const imageUrl = new URL(`../assets/images/${props.fruit}.png`, import.meta.url).href
@@ -27,6 +31,7 @@ function isSelected() {
   <button
     class="relative flex flex-col gap-1 p-2 items-center justify-center hover:cursor-pointer rounded-lg"
     :class="[isSelected() ? 'bg-gray-200' : 'hover:bg-gray-100']"
+    :disabled="isDisabled"
   >
     <img
       :src="imageUrl"
