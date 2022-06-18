@@ -25,3 +25,6 @@ git commit -m 'deploy'
 git push -f git@github.com:jedymatt/mystery-fruits-js.git main:gh-pages
 
 cd -
+
+# Remove dist folder after deploy
+rm -rf dist
