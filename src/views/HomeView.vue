@@ -16,13 +16,7 @@ const { history, addToHistory, clearHistory } = useHistory();
 
 const availableAttempts = ref(6);
 const selectedFruits = ref([]);
-const isGameOver = computed(() => {
-  return (
-    availableAttempts.value === 0 ||
-    countCorrectFruitsOrder(selectedFruits.value, hiddenFruits.value) ===
-    hiddenFruits.value.length
-  );
-});
+const isGameOver = ref(false);
 const isLoading = ref(false);
 
 function selectFruit(fruit) {
@@ -35,10 +29,16 @@ function selectFruit(fruit) {
 
   if (selectedFruits.value.length === 3) {
     isLoading.value = true;
+    availableAttempts.value--;
+
     setTimeout(function () {
+      isGameOver.value = availableAttempts.value <= 0
+        || (countCorrectFruitsOrder(selectedFruits.value, hiddenFruits.value) ===
+          hiddenFruits.value.length);
+
       addSelectedFruitsToHistory();
       clearSelectedFruits();
-      availableAttempts.value--;
+
       isLoading.value = false;
     }, 400);
   }
@@ -85,7 +85,7 @@ function restartGame() {
   selectedFruits.value = [];
   availableAttempts.value = 6;
   clearHistory();
-  // isGameOver.value = false
+  isGameOver.value = false
   console.log(`Answer: ${hiddenFruits.value}`);
 }
 
