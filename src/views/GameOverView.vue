@@ -3,27 +3,28 @@ import PrimaryButtonVue from '../components/PrimaryButton.vue';
 import FruitImageVue from '../components/FruitImage.vue';
 import TrophyIconVue from '../components/icons/TrophyIcon.vue';
 import HeartCrackIconVue from '../components/icons/HeartCrackIcon.vue';
+import { RefreshIcon } from '@heroicons/vue/solid'
 
 const props = defineProps({
-    answer: {
-        type: Array,
-        required: true,
-    },
-    restartGame: {
-        type: Function,
-        required: true,
-    },
-    attemptsLeft: {
-        type: Number,
-        required: true,
-        default: 0,
-    },
+  answer: {
+    type: Array,
+    required: true,
+  },
+  restartGame: {
+    type: Function,
+    required: true,
+  },
+  attemptsLeft: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
 });
 
 const remark = props.attemptsLeft > 0 ? `You guessed it all with ${props.attemptsLeft} remaining attempts.` : 'You have no more attempts left.';
 
 function isSuccess() {
-    return props.attemptsLeft > 0;
+  return props.attemptsLeft > 0;
 }
 </script>
 
@@ -53,8 +54,12 @@ function isSuccess() {
     </div>
 
     <div class="mt-4">
-      <PrimaryButtonVue @click="restartGame()">
-        Restart Game
+      <PrimaryButtonVue
+        class="flex items-center justify-center gap-2"
+        @click="restartGame()"
+      >
+        <RefreshIcon class="h-5 w-5 inline-block" />
+        Retry
       </PrimaryButtonVue>
     </div>
   </div>
