@@ -1,4 +1,5 @@
 <script setup>
+import FruitImage from './FruitImage.vue';
 const props = defineProps({
   fruit: {
     type: String,
@@ -14,8 +15,6 @@ const props = defineProps({
     default: false,
   }
 })
-
-const imageUrl = new URL(`../assets/images/${props.fruit}.png`, import.meta.url).href
 
 function getSelectedIndex() {
   return props.selectedIndex + 1;
@@ -33,11 +32,10 @@ function isSelected() {
     :class="[isSelected() ? 'bg-gray-200' : 'hover:bg-gray-100']"
     :disabled="isDisabled"
   >
-    <img
-      :src="imageUrl"
-      :alt="`${fruit} image`"
-      class="h-16 w-16 md:h-32 md:w-32"
-    >
+    <FruitImage
+      :fruit="fruit"
+      class="h-16 w-16"
+    />
     <div class="text-xs uppercase font-semibold">
       {{ fruit }}
     </div>
