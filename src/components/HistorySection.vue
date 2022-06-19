@@ -14,13 +14,13 @@ defineProps({
     <h2 class="text-pink-500">
       History
     </h2>
-    <div class="p-2 border rounded-md">
+    <div class="border rounded-md">
       <div
         v-for="items in history"
         :key="items"
         class="border-b last:border-none"
       >
-        <div class="grid grid-cols-5 self-center p-1 place-content-center">
+        <div class="grid grid-cols-5 self-center place-content-center">
           <div
             v-for="fruit in items.selectedFruits"
             :key="fruit"
@@ -28,21 +28,21 @@ defineProps({
           >
             <FruitImage
               :fruit="fruit"
-              class="h-8 w-8"
+              class="h-6 w-6"
             />
             <span class="text-xs capitalize">
               {{ fruit }}
             </span>
           </div>
 
-          <div class="border-l self-center flex flex-col items-center p-1">
-            <div class="h-8 w-8 flex items-center justify-center font-semibold">
+          <div class="border-l self-center flex flex-col items-center p-0.5">
+            <div class="h-6 w-6 flex items-center justify-center font-semibold">
               {{ items.correctFruits }}
             </div>
             <span class="text-xs text-center">Correct Fruits</span>
           </div>
           <div class="self-center flex flex-col items-center p-1">
-            <div class="h-8 w-8 flex items-center justify-center font-semibold">
+            <div class="h-6 w-6 flex items-center justify-center font-semibold">
               {{ items.correctFruitsOrder }}
             </div>
             <span class="text-xs text-center">Correct Fruits Order</span>
