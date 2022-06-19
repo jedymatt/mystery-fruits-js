@@ -23,8 +23,11 @@ function selectFruit(fruit) {
   if (isLoading.value || isGameOver.value) return;
 
   if (selectedFruits.value.length < 3) {
-    if (selectedFruits.value.includes(fruit)) return;
-    selectedFruits.value.push(fruit);
+    if (selectedFruits.value.includes(fruit)) {
+      unselectFruit(fruit);
+    } else {
+      selectedFruits.value.push(fruit);
+    }
   }
 
   if (selectedFruits.value.length === 3) {
@@ -36,8 +39,10 @@ function selectFruit(fruit) {
         || (countCorrectFruitsOrder(selectedFruits.value, hiddenFruits.value) ===
           hiddenFruits.value.length);
 
-      addSelectedFruitsToHistory();
-      clearSelectedFruits();
+      if (!isGameOver.value) {
+        addSelectedFruitsToHistory();
+        clearSelectedFruits();
+      }
 
       isLoading.value = false;
     }, 400);
@@ -99,20 +104,39 @@ const reversedHistory = computed(() => history.value.slice().reverse());
 <template>
   <main>
     <div class="md:p-12 p-2">
-      <div v-if="!isGameOver">
-        <div class="grid grid-cols-3 gap-6">
-          <FruitButton
-            v-for="fruit in randomFruits"
-            :key="fruit"
-            :fruit="fruit"
-            :selected-index="getSelectedFruitIndex(fruit)"
-            :is-disabled="isLoading.value"
-            @click="selectFruit(fruit)"
-          />
+      <div
+        v-if="!isGameOver"
+        class="grid lg:grid-cols-2 place-items-start justify-items-center content-center gap-4"
+      >
+        <div class="w-full h-full">
+          <div>
+            Remaining Attempts: <span class="font-semibold text-pink-500">{{ availableAttempts }}</span>
+          </div>
+          <div class="mt-4 grid grid-cols-3 gap-2 place-items-center">
+            <div
+              v-for="fruit in randomFruits"
+              :key="fruit"
+            >
+              <FruitButton
+                :fruit="fruit"
+                :selected-index="getSelectedFruitIndex(fruit)"
+                :is-disabled="isLoading.value"
+                class="h-24 w-24 border"
+                :class="[
+                  {
+                    'bg-red-100':
+                      (selectedFruits.length === 3 && !isCorrectAnswer()) && selectedFruits.includes(fruit),
+                    'bg-green-100':
+                      (selectedFruits.length === 3 && isCorrectAnswer()) && selectedFruits.includes(fruit),
+                  },
+                ]"
+                @click="selectFruit(fruit)"
+              />
+            </div>
+          </div>
         </div>
-
-        <div>
-          <div class="mt-4">
+        <div class="h-full w-full">
+          <!-- <div class="mt-4">
             <div class="rounded-md border border-gray-200 md:p-12 p-2">
               <div class="grid grid-cols-3 gap-6">
                 <button
@@ -133,20 +157,17 @@ const reversedHistory = computed(() => history.value.slice().reverse());
                 </button>
               </div>
             </div>
-          </div>
-          <div class="mt-4">
-            Remaining attempts: {{ availableAttempts }}
-          </div>
-          <div class="mt-4">
-            <HistorySection :history="reversedHistory" />
-          </div>
+          </div> -->
+
+          <HistorySection :history="reversedHistory" />
         </div>
       </div>
       <div v-if="isGameOver">
         <GameOverViewVue
           :restart-game="restartGame"
-          :answer="hiddenFruits"
+          :hidden-fruits="hiddenFruits"
           :attempts-left="availableAttempts"
+          :selected-fruits="selectedFruits"
         />
       </div>
     </div>
