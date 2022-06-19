@@ -48,8 +48,13 @@ function isSuccess() {
       <div
         v-for="fruit in answer"
         :key="fruit"
+        class="flex flex-col items-center justify-center gap-2"
       >
-        <FruitImageVue :fruit="fruit" />
+        <FruitImageVue
+          :fruit="fruit"
+          class="h-32 w-32"
+        />
+        <span class="text-sm uppercase">{{ fruit }}</span>
       </div>
     </div>
 
