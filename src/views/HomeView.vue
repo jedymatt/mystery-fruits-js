@@ -102,74 +102,54 @@ const reversedHistory = computed(() => history.value.slice().reverse());
 </script>
 
 <template>
-  <main>
-    <div class="md:p-12 p-2">
-      <div
-        v-if="!isGameOver"
-        class="grid lg:grid-cols-2 place-items-start justify-items-center content-center gap-4"
-      >
-        <div class="w-full h-full">
-          <div>
-            Remaining Attempts: <span class="font-semibold text-pink-500">{{ availableAttempts }}</span>
-          </div>
-          <div class="mt-4 grid grid-cols-3 gap-2 place-items-center">
-            <div
-              v-for="fruit in randomFruits"
-              :key="fruit"
-            >
-              <FruitButton
-                :fruit="fruit"
-                :selected-index="getSelectedFruitIndex(fruit)"
-                :is-disabled="isLoading.value"
-                class="h-24 w-24 border"
-                :class="[
-                  {
-                    'bg-red-100':
-                      (selectedFruits.length === 3 && !isCorrectAnswer()) && selectedFruits.includes(fruit),
-                    'bg-green-100':
-                      (selectedFruits.length === 3 && isCorrectAnswer()) && selectedFruits.includes(fruit),
-                  },
-                ]"
-                @click="selectFruit(fruit)"
-              />
-            </div>
-          </div>
+  <main
+    class="md:p-12 p-2"
+    :class="{
+      'flex items-center justify-center': isGameOver
+    }"
+  >
+    <div
+      v-if="!isGameOver"
+      id="game"
+      class="grid lg:grid-cols-2 place-items-start justify-items-center content-center gap-4"
+    >
+      <div class="h-full w-full">
+        <div>
+          Remaining Attempts: <span class="font-semibold text-pink-500">{{ availableAttempts }}</span>
         </div>
-        <div class="h-full w-full">
-          <!-- <div class="mt-4">
-            <div class="rounded-md border border-gray-200 md:p-12 p-2">
-              <div class="grid grid-cols-3 gap-6">
-                <button
-                  v-for="fruit in selectedFruits"
-                  :key="fruit"
-                  :class="[
-                    'bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg',
-                    {
-                      'bg-red-300':
-                        selectedFruits.length === 3 && !isCorrectAnswer(),
-                      'bg-green-300':
-                        selectedFruits.length === 3 && isCorrectAnswer(),
-                    },
-                  ]"
-                  @click="unselectFruit(fruit)"
-                >
-                  {{ fruit }}
-                </button>
-              </div>
-            </div>
-          </div> -->
-
-          <HistorySection :history="reversedHistory" />
+        <div class="mt-4 grid grid-cols-3 gap-2 place-items-center">
+          <div
+            v-for="fruit in randomFruits"
+            :key="fruit"
+          >
+            <FruitButton
+              :fruit="fruit"
+              :selected-index="getSelectedFruitIndex(fruit)"
+              :disabled="isLoading.value"
+              class="h-24 w-24 border"
+              :class="[
+                {
+                  'bg-red-100':
+                    (selectedFruits.length === 3 && !isCorrectAnswer()) && selectedFruits.includes(fruit),
+                  'bg-green-100':
+                    (selectedFruits.length === 3 && isCorrectAnswer()) && selectedFruits.includes(fruit),
+                },
+              ]"
+              @click="selectFruit(fruit)"
+            />
+          </div>
         </div>
       </div>
-      <div v-if="isGameOver">
-        <GameOverViewVue
-          :restart-game="restartGame"
-          :hidden-fruits="hiddenFruits"
-          :attempts-left="availableAttempts"
-          :selected-fruits="selectedFruits"
-        />
+      <div class="h-full w-full">
+        <HistorySection :history="reversedHistory" />
       </div>
     </div>
+    <GameOverViewVue
+      v-if="isGameOver"
+      :restart-game="restartGame"
+      :hidden-fruits="hiddenFruits"
+      :attempts-left="availableAttempts"
+      :selected-fruits="selectedFruits"
+    />
   </main>
 </template>
