@@ -4,9 +4,15 @@ import FruitImageVue from '../components/FruitImage.vue';
 import TrophyIconVue from '../components/icons/TrophyIcon.vue';
 import HeartCrackIconVue from '../components/icons/HeartCrackIcon.vue';
 import { RefreshIcon } from '@heroicons/vue/solid'
+import { countMatchingArrayOrder } from '../lib/counter';
+import { computed } from 'vue';
 
 const props = defineProps({
-  answer: {
+  hiddenFruits: {
+    type: Array,
+    required: true,
+  },
+  selectedFruits: {
     type: Array,
     required: true,
   },
@@ -21,10 +27,10 @@ const props = defineProps({
   },
 });
 
-const remark = props.attemptsLeft > 0 ? `You guessed it all with ${props.attemptsLeft} remaining attempts.` : 'You have no more attempts left.';
+const remark = computed(() => isSuccess() ? `You guessed it all with ${props.attemptsLeft} remaining attempts.` : 'You have no more attempts left.');
 
 function isSuccess() {
-  return props.attemptsLeft > 0;
+  return countMatchingArrayOrder(props.hiddenFruits, props.selectedFruits) === props.hiddenFruits.length;
 }
 </script>
 
@@ -46,13 +52,13 @@ function isSuccess() {
 
     <div class="flex flex-wrap flex-row gap-4">
       <div
-        v-for="fruit in answer"
+        v-for="fruit in hiddenFruits"
         :key="fruit"
         class="flex flex-col items-center justify-center gap-2"
       >
         <FruitImageVue
           :fruit="fruit"
-          class="h-32 w-32"
+          class="h-16 w-16 lg:h-32 lg:w-32"
         />
         <span class="text-sm uppercase">{{ fruit }}</span>
       </div>
