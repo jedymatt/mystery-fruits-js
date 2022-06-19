@@ -6,7 +6,7 @@ import {
   countCorrectFruitsOrder,
 } from "@/lib/functions.js";
 import HistorySection from "@/components/HistorySection.vue";
-import FruitButton from "@/components/FruitButton.vue";
+import FruitButton from "../components/FruitButton.vue";
 import GameOverViewVue from "./GameOverView.vue";
 import { useFruits } from "../composables/fruits";
 import { useHistory } from "../composables/history";
@@ -99,10 +99,7 @@ const reversedHistory = computed(() => history.value.slice().reverse());
 <template>
   <main>
     <div class="md:p-12 p-2">
-      <div
-        v-if="!isGameOver"
-        class="lg:flex lg:flex-row lg:gap-6"
-      >
+      <div v-if="!isGameOver">
         <div class="grid grid-cols-3 gap-6">
           <FruitButton
             v-for="fruit in randomFruits"
