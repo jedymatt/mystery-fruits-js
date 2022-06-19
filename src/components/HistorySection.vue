@@ -18,70 +18,37 @@ defineProps({
       <div
         v-for="items in history"
         :key="items"
+        class="border-b last:border-none"
       >
-        <div class="grid grid-cols-2">
-          <div class="flex flex-row">
-            <div
-              v-for="fruit in items.selectedFruits"
-              :key="fruit"
-              class="flex flex-col items-center justify-center gap-1"
-            >
-              <FruitImage
-                :fruit="fruit"
-                class="h-8 w-8"
-              />
-              <span class="text-xs capitalize">
-                {{ fruit }}
-              </span>
-            </div>
+        <div class="grid grid-cols-5 self-center p-1 place-content-center">
+          <div
+            v-for="fruit in items.selectedFruits"
+            :key="fruit"
+            class="flex flex-col justify-center items-center"
+          >
+            <FruitImage
+              :fruit="fruit"
+              class="h-8 w-8"
+            />
+            <span class="text-xs capitalize">
+              {{ fruit }}
+            </span>
           </div>
-          <div class="flex flex-row">
-            <div class="flex flex-col items-center justify-center">
-              <div class="h-8 w-8">
-                {{ items.correctFruits }}
-              </div>
-              <span class="text-xs">Correct Fruits</span>
+
+          <div class="border-l self-center flex flex-col items-center p-1">
+            <div class="h-8 w-8 flex items-center justify-center">
+              {{ items.correctFruits }}
             </div>
-            <div class="flex flex-col items-center justify-center">
-              <div class="h-8 w-8">
-                {{ items.correctFruitsOrder }}
-              </div>
-              <span class="text-xs">Correct Fruits Order</span>
+            <span class="text-xs text-center">Correct Fruits</span>
+          </div>
+          <div class="self-center flex flex-col items-center p-1">
+            <div class="h-8 w-8 flex items-center justify-center">
+              {{ items.correctFruitsOrder }}
             </div>
+            <span class="text-xs text-center">Correct Fruits Order</span>
           </div>
         </div>
       </div>
-      <!-- <div
-        v-for="items in history"
-        :key="items"
-        class="flex flex-row items-center justify-center gap-2 py-2 border-b last:border-b-0"
-      >
-        <div
-          v-for="fruit in items.selectedFruits"
-          :key="fruit"
-          class="flex flex-col items-center justify-center gap-1"
-        >
-          <FruitImage
-            :fruit="fruit"
-            class="h-8 w-8"
-          />
-          <span class="text-xs capitalize">
-            {{ fruit }}
-          </span>
-        </div>
-        <div class="flex flex-col items-center justify-center">
-          <div class="h-8 w-8">
-            {{ items.correctFruits }}
-          </div>
-          <span class="text-xs">Correct Fruits</span>
-        </div>
-        <div class="flex flex-col items-center justify-center">
-          <div class="h-8 w-8">
-            {{ items.correctFruitsOrder }}
-          </div>
-          <span class="text-xs">Correct Fruits Order</span>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
