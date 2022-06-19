@@ -10,15 +10,16 @@ defineProps({
 </script>
 
 <template>
-  <div class="w-full">
+  <div>
     <h2 class="text-pink-500">
       History
     </h2>
-    <div class="border rounded-md">
+    <div
+      class="mt-4 border divide-y rounded-md grid grid-flow-row"
+    >
       <div
         v-for="items in history"
         :key="items"
-        class="border-b last:border-none"
       >
         <div class="grid grid-cols-5 self-center place-content-center">
           <div
