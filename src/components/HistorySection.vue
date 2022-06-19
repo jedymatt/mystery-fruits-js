@@ -36,13 +36,13 @@ defineProps({
           </div>
 
           <div class="border-l self-center flex flex-col items-center p-1">
-            <div class="h-8 w-8 flex items-center justify-center">
+            <div class="h-8 w-8 flex items-center justify-center font-semibold">
               {{ items.correctFruits }}
             </div>
             <span class="text-xs text-center">Correct Fruits</span>
           </div>
           <div class="self-center flex flex-col items-center p-1">
-            <div class="h-8 w-8 flex items-center justify-center">
+            <div class="h-8 w-8 flex items-center justify-center font-semibold">
               {{ items.correctFruitsOrder }}
             </div>
             <span class="text-xs text-center">Correct Fruits Order</span>
