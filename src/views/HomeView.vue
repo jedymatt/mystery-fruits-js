@@ -7,9 +7,9 @@ import {
 } from "@/lib/functions.js";
 import HistorySection from "@/components/HistorySection.vue";
 import FruitButton from "../components/FruitButton.vue";
-import GameOverViewVue from "./GameOverView.vue";
 import { useFruits } from "../composables/fruits";
 import { useHistory } from "../composables/history";
+import GameOverSection from "../components/GameOverSection.vue";
 
 const { hiddenFruits, randomFruits, resetFruits } = useFruits();
 const { history, addToHistory, clearHistory } = useHistory();
@@ -102,20 +102,15 @@ const reversedHistory = computed(() => history.value.slice().reverse());
 </script>
 
 <template>
-  <main
-    class="md:p-12 p-2"
-    :class="{
-      'flex items-center justify-center': isGameOver
-    }"
-  >
+  <main class="md:p-12 p-2">
     <div
       v-if="!isGameOver"
       id="game"
       class="grid lg:grid-cols-2 place-items-start justify-items-center content-center gap-4"
     >
       <div class="h-full w-full">
-        <div>
-          Remaining Attempts: <span class="font-semibold text-pink-500">{{ availableAttempts }}</span>
+        <div class="mt-4 text-pink-500 font-semibold">
+          Remaining Attempts: <span class="font-black ">{{ availableAttempts }}</span>
         </div>
         <div class="mt-4 grid grid-cols-3 gap-2 place-items-center">
           <div
@@ -144,7 +139,7 @@ const reversedHistory = computed(() => history.value.slice().reverse());
         <HistorySection :history="reversedHistory" />
       </div>
     </div>
-    <GameOverViewVue
+    <GameOverSection
       v-if="isGameOver"
       :restart-game="restartGame"
       :hidden-fruits="hiddenFruits"
