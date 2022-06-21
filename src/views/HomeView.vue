@@ -1,4 +1,4 @@
-countMatchingArraycountMatchingArray<script setup>
+<script setup>
 import { computed, onMounted, ref } from "vue";
 
 import HistorySection from "@/components/HistorySection.vue";
