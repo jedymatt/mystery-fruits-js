@@ -1,15 +1,12 @@
-<script setup>
+countMatchingArraycountMatchingArray<script setup>
 import { ref, onMounted, computed } from "vue";
 
-import {
-  countCorrectFruits,
-  countCorrectFruitsOrder,
-} from "@/lib/functions.js";
 import HistorySection from "@/components/HistorySection.vue";
 import FruitButton from "../components/FruitButton.vue";
 import { useFruits } from "../composables/fruits";
 import { useHistory } from "../composables/history";
 import GameOverSection from "../components/GameOverSection.vue";
+import { countMatchingArray, countMatchingArrayOrder } from "../lib/counter";
 
 const { hiddenFruits, randomFruits, resetFruits } = useFruits();
 const { history, addToHistory, clearHistory } = useHistory();
@@ -36,7 +33,7 @@ function selectFruit(fruit) {
 
     setTimeout(function () {
       isGameOver.value = availableAttempts.value <= 0
-        || (countCorrectFruitsOrder(selectedFruits.value, hiddenFruits.value) ===
+        || (countMatchingArray(selectedFruits.value, hiddenFruits.value) ===
           hiddenFruits.value.length);
 
       if (!isGameOver.value) {
@@ -58,22 +55,18 @@ function unselectFruit(fruit) {
 }
 
 function isCorrectAnswer() {
-  const correctFruits = countCorrectFruits(
+  const correctFruitsOrder = countMatchingArrayOrder(
     hiddenFruits.value,
     selectedFruits.value
   );
-  const correctFruitsOrder = countCorrectFruitsOrder(
-    hiddenFruits.value,
-    selectedFruits.value
-  );
-  return correctFruits === 3 && correctFruitsOrder === 3;
+  return correctFruitsOrder === 3;
 }
 
 function addSelectedFruitsToHistory() {
   addToHistory({
     selectedFruits: selectedFruits.value,
-    correctFruits: countCorrectFruits(hiddenFruits.value, selectedFruits.value),
-    correctFruitsOrder: countCorrectFruitsOrder(
+    correctFruits: countMatchingArray(hiddenFruits.value, selectedFruits.value),
+    correctFruitsOrder: countMatchingArrayOrder(
       hiddenFruits.value,
       selectedFruits.value
     ),
