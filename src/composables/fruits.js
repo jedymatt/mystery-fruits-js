@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { randomUniqueFruits, getRandomUniqueFrom } from "../lib/fruits";
+import { getRandomUniqueFrom, randomUniqueFruits } from "../lib/fruits";
 
 export function useFruits() {
   const randomFruits = ref(randomUniqueFruits(6));

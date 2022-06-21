@@ -1,11 +1,11 @@
 countMatchingArraycountMatchingArray<script setup>
-import { ref, onMounted, computed } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 import HistorySection from "@/components/HistorySection.vue";
 import FruitButton from "../components/FruitButton.vue";
+import GameOverSection from "../components/GameOverSection.vue";
 import { useFruits } from "../composables/fruits";
 import { useHistory } from "../composables/history";
-import GameOverSection from "../components/GameOverSection.vue";
 import { countMatchingArray, countMatchingArrayOrder } from "../lib/counter";
 
 const { hiddenFruits, randomFruits, resetFruits } = useFruits();

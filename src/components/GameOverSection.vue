@@ -1,11 +1,11 @@
 <script setup>
-import PrimaryButtonVue from '../components/PrimaryButton.vue';
-import FruitImageVue from '../components/FruitImage.vue';
-import TrophyIconVue from '../components/icons/TrophyIcon.vue';
-import HeartCrackIconVue from '../components/icons/HeartCrackIcon.vue';
-import { RefreshIcon } from '@heroicons/vue/solid'
-import { countMatchingArrayOrder } from '../lib/counter';
+import { RefreshIcon } from '@heroicons/vue/solid';
 import { computed } from 'vue';
+import FruitImageVue from '../components/FruitImage.vue';
+import HeartCrackIconVue from '../components/icons/HeartCrackIcon.vue';
+import TrophyIconVue from '../components/icons/TrophyIcon.vue';
+import PrimaryButtonVue from '../components/PrimaryButton.vue';
+import { countMatchingArrayOrder } from '../lib/counter';
 
 const props = defineProps({
   hiddenFruits: {
