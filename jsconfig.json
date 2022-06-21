@@ -3,6 +3,7 @@
         "module": "ESNext",
         "moduleResolution": "Node",
         "target": "ES2020",
+        "jsx": "preserve",
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": ".",
