@@ -29,3 +29,9 @@
         @apply text-sm font-bold
     }
 }
+
+.dark{
+    --tw-text-opacity:1;
+    color: rgb(255 255 255/var(--tw-text-opacity));
+    background-color: rgb(51, 51, 51)
+}
