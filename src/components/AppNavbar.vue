@@ -4,7 +4,7 @@ import GithubIcon from './icons/GithubIcon.vue';
 </script>
 
 <template>
-  <nav class="text-gray-800 font-medium">
+  <nav class="text-gray-800 font-medium dark:text-white">
     <div class="p-2 flex flex-row gap-2 items-center">
       <RouterLink
         to="/"
