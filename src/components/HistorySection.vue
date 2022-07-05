@@ -21,7 +21,7 @@ defineProps({
         v-for="items in history"
         :key="items"
       >
-        <div class="grid grid-cols-5 self-center place-content-center">
+        <div class="grid grid-cols-5 self-center place-content-center animate-slide-in">
           <div
             v-for="fruit in items.selectedFruits"
             :key="fruit"
