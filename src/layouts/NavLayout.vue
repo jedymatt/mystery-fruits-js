@@ -46,7 +46,7 @@ const toggleDarkMode = () => {
             rel="noopener noreferrer"
           >
             <span class="sr-only">Github</span>
-            <GithubIcon class="h-5 w-5" />
+            <GithubIcon class="h-5 w-5 dark:fill-white" />
           </a>
           <!-- Dark theme button -->
           <button
