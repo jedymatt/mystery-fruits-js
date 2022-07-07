@@ -28,14 +28,21 @@ module.exports = {
           '0%': {
             height: 'auto',
             opacity: '1',
+<<<<<<< HEAD
             "margin-bottom": '40px',
             padding: '28px',
+=======
+>>>>>>> a73dad39a85c0234941c08089ecac545d8064c3d
           },
           '100%': {
             opacity: '0',
             height: '0',
             padding: '0',
+<<<<<<< HEAD
             "margin-bottom": '0',
+=======
+            margin: '0',
+>>>>>>> a73dad39a85c0234941c08089ecac545d8064c3d
           }
         }
       },
