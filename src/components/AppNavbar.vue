@@ -17,8 +17,16 @@ import GithubIcon from './icons/GithubIcon.vue';
           <RouterLink
             to="/credits"
             class="p-2 rounded-md hover:bg-pink-100"
+            :class="{ 'text-pink-600': $route.name === 'credits' }"
           >
             Credits
+          </RouterLink>
+          <RouterLink
+            to="/contributors"
+            class="p-2 rounded-md hover:bg-pink-100"
+            :class="{ 'text-pink-600': $route.name === 'contributors' }"
+          >
+            Contributors
           </RouterLink>
         </div>
         <div class="flex flex-row">
