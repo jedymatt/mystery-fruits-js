@@ -1,12 +1,12 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import AppNavbar from './components/AppNavbar.vue'
+import NavLayout from './Layouts/NavLayout.vue'
 </script>
 
 <template>
   <div class="antialiased">
     <div class="flex flex-col min-h-screen">
-      <AppNavbar />
+      <NavLayout />
       <RouterView
         v-slot="{ Component }"
         class="flex-grow"
