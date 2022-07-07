@@ -7,7 +7,7 @@ const { toggleDarkMode } = useTheme();
 </script>
 
 <template>
-  <nav class="text-gray-800 font-medium dark:text-white">
+  <nav class="text-gray-800 dark:text-white">
     <div class="p-2 flex flex-row gap-2 items-center">
       <RouterLink
         to="/"
@@ -19,14 +19,14 @@ const { toggleDarkMode } = useTheme();
         <div class="flex flex-row">
           <RouterLink
             to="/credits"
-            class="p-2 rounded-md hover:bg-pink-100 dark:hover:bg-pink-500"
+            class="p-2 rounded-md hover:bg-pink-100 dark:hover:bg-pink-500 dark:hover:text-white"
             :class="{ 'text-pink-600': $route.name === 'credits' }"
           >
             Credits
           </RouterLink>
           <RouterLink
             to="/contributors"
-            class="p-2 rounded-md hover:bg-pink-100 dark:hover:bg-pink-500"
+            class="p-2 rounded-md hover:bg-pink-100 dark:hover:bg-pink-500 dark:hover:text-white"
             :class="{ 'text-pink-600': $route.name === 'contributors' }"
           >
             Contributors
