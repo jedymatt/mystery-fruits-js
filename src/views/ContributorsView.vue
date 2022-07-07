@@ -45,7 +45,7 @@ fetchContributors();
             >{{
               contributor.login
             }}</a>
-            <p class="text-sm text-gray-700">
+            <p class="text-sm text-gray-700 dark:text-white">
               Contributions: {{ contributor.contributions }}
             </p>
           </div>
