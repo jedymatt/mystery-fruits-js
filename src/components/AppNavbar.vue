@@ -38,9 +38,9 @@ const toggleDarkMode = () => {
             Contributors
           </RouterLink>
         </div>
-        <div class="flex flex-row">
+        <div class="flex flex-row gap-2">
           <a
-            class="flex items-center p-2 hover:bg-pink-100 rounded-md gap-1"
+            class="flex items-center p-2 hover:bg-pink-100 rounded-md"
             href="https://www.github.com/jedymatt/mystery-fruits-js"
             target="_blank"
             rel="noopener noreferrer"
@@ -48,11 +48,11 @@ const toggleDarkMode = () => {
             <span class="sr-only">Github</span>
             <GithubIcon class="h-5 w-5" />
           </a>
-        </div>
-        <!-- Dark theme button -->
-
-        <div>
-          <button @click="toggleDarkMode">
+          <!-- Dark theme button -->
+          <button
+            class="p-2 rounded-md hover:bg-pink-100"
+            @click="toggleDarkMode"
+          >
             <svg
               class="block dark:hidden h-6 w-6"
               xmlns="http://www.w3.org/2000/svg"
