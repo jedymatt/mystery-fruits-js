@@ -9,7 +9,7 @@ const { showInstruction, closeInstruction } = useInstruction();
   <Transition leave-active-class="animate-close-section">
     <div
       v-if="showInstruction"
-      class="mb-10 bg-red-100 inline-block p-7 border-2 border-red-300 rounded-lg relative overflow-hidden dark:bg-pink-800"
+      class="mb-10 bg-red-100 block p-7 border-2 border-red-300 rounded-lg relative overflow-hidden dark:bg-pink-800 text-sm"
     >
       <button
         class="bg-red-400 p-1 rounded-full h-6 w-6 flex items-center justify-center  absolute top-3 right-3 hover:bg-red-900  cursor-pointer transition-all delay-75 ease-in "
