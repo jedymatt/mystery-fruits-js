@@ -1,15 +1,9 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import GithubIcon from '@/components/icons/GithubIcon.vue';
+import { useTheme } from '@/composables/common';
 
-const toggleDarkMode = () => {
-  const element = document.getElementsByTagName('html')[0];
-  if (element.classList.contains('dark')) {
-    element.classList.remove('dark')
-  } else {
-    element.classList.add('dark')
-  }
-}
+const { toggleDarkMode } = useTheme();
 </script>
 
 <template>
@@ -17,7 +11,7 @@ const toggleDarkMode = () => {
     <div class="p-2 flex flex-row gap-2 items-center">
       <RouterLink
         to="/"
-        class="font-bold text-xl hover:bg-pink-100 p-2 rounded-md"
+        class="font-bold text-xl hover:bg-pink-100 dark:hover:bg-pink-500 p-2 rounded-md"
       >
         Mystery Fruits
       </RouterLink>
@@ -25,14 +19,14 @@ const toggleDarkMode = () => {
         <div class="flex flex-row">
           <RouterLink
             to="/credits"
-            class="p-2 rounded-md hover:bg-pink-100"
+            class="p-2 rounded-md hover:bg-pink-100 dark:hover:bg-pink-500"
             :class="{ 'text-pink-600': $route.name === 'credits' }"
           >
             Credits
           </RouterLink>
           <RouterLink
             to="/contributors"
-            class="p-2 rounded-md hover:bg-pink-100"
+            class="p-2 rounded-md hover:bg-pink-100 dark:hover:bg-pink-500"
             :class="{ 'text-pink-600': $route.name === 'contributors' }"
           >
             Contributors
@@ -40,7 +34,7 @@ const toggleDarkMode = () => {
         </div>
         <div class="flex flex-row gap-2">
           <a
-            class="flex items-center p-2 hover:bg-pink-100 rounded-md"
+            class="flex items-center p-2 hover:bg-pink-100 rounded-md dark:hover:bg-pink-500"
             href="https://www.github.com/jedymatt/mystery-fruits-js"
             target="_blank"
             rel="noopener noreferrer"
@@ -50,8 +44,8 @@ const toggleDarkMode = () => {
           </a>
           <!-- Dark theme button -->
           <button
-            class="p-2 rounded-md hover:bg-pink-100"
-            @click="toggleDarkMode"
+            class="p-2 rounded-md hover:bg-pink-100 dark:hover:bg-pink-500"
+            @click="toggleDarkMode()"
           >
             <svg
               class="block dark:hidden h-6 w-6"
