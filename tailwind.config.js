@@ -24,24 +24,9 @@ module.exports = {
             transform: 'translateY(0)',
           },
         },
-        'close-section': {
-          '0%': {
-            height: 'auto',
-            opacity: '1',
-            "margin-bottom": '40px',
-            padding: '28px',
-          },
-          '100%': {
-            opacity: '0',
-            height: '0',
-            padding: '0',
-            "margin-bottom": '0',
-          }
-        }
       },
       animation: {
         'slide-in': 'slide-in 1s ease 0s 1 normal forwards',
-        'close-section': 'close-section 1s ease 0s 1 normal forwards',
       },
     },
   },
