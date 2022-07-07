@@ -29,3 +29,12 @@
         @apply text-sm font-bold
     }
 }
+
+#nprogress .bar {
+    background: #ec4899 !important;
+    box-shadow: 0 0 10px #ec4899, 0 0 5px #ec4899 !important;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px #ec4899, 0 0 5px #ec4899 !important;
+}
