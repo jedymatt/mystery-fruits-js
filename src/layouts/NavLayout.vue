@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import GithubIcon from './icons/GithubIcon.vue';
+import GithubIcon from '@/components/icons/GithubIcon.vue';
 
 const toggleDarkMode = () => {
   const element = document.getElementsByTagName('html')[0];
