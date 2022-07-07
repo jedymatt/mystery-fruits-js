@@ -24,8 +24,8 @@ function isSelected() {
 
 <template>
   <button
-    class="relative flex flex-col gap-1 p-2 items-center justify-center hover:cursor-pointer rounded-lg"
-    :class="[isSelected() ? 'bg-gray-200' : 'hover:bg-gray-100']"
+    class="relative flex flex-col gap-1 p-2 items-center justify-center hover:cursor-pointer rounded-lg dark:hover:bg-slate-700"
+    :class="[isSelected() ? 'bg-gray-200 dark:bg-gray-900' : 'hover:bg-gray-100']"
   >
     <FruitImage
       :fruit="fruit"
