@@ -1,6 +1,14 @@
 <script setup>
 import { RouterView } from 'vue-router'
 import NavLayout from '@/layouts/NavLayout.vue'
+import { onMounted } from 'vue';
+
+onMounted(() => {
+  // When the page is loaded, apply the dark mode if it's set to dark from localStorage
+  if (localStorage.theme === 'dark') {
+    document.getElementsByTagName('html')[0].classList.add('dark')
+  }
+})
 </script>
 
 <template>
@@ -15,9 +23,7 @@ import NavLayout from '@/layouts/NavLayout.vue'
           name="fade"
           mode="out-in"
         >
-          <component
-            :is="Component"
-          />
+          <component :is="Component" />
         </Transition>
       </RouterView>
     </div>
