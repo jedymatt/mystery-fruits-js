@@ -56,14 +56,6 @@ function unselectFruit(fruit) {
   selectedFruits.value = selectedFruits.value.filter((f) => f !== fruit);
 }
 
-function isCorrectAnswer() {
-  const correctFruitsOrder = countMatchingArrayOrder(
-    hiddenFruits.value,
-    selectedFruits.value
-  );
-  return correctFruitsOrder === 3;
-}
-
 function addSelectedFruitsToHistory() {
   addToHistory({
     selectedFruits: selectedFruits.value,
@@ -118,19 +110,7 @@ const reversedHistory = computed(() => history.value.slice().reverse());
               :fruit="fruit"
               :selected-index="getSelectedFruitIndex(fruit)"
               :disabled="isLoading.value"
-              class="h-24 w-24 border"
-              :class="[
-                {
-                  'bg-red-100':
-                    selectedFruits.length === 3 &&
-                    !isCorrectAnswer() &&
-                    selectedFruits.includes(fruit),
-                  'bg-green-100':
-                    selectedFruits.length === 3 &&
-                    isCorrectAnswer() &&
-                    selectedFruits.includes(fruit),
-                },
-              ]"
+              class="h-24 w-24"
               @click="selectFruit(fruit)"
             />
           </div>
