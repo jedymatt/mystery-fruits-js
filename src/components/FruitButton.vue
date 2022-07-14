@@ -1,5 +1,6 @@
 <script setup>
-import FruitImage from './FruitImage.vue';
+import { computed } from "vue";
+import FruitImage from "./FruitImage.vue";
 const props = defineProps({
   fruit: {
     type: String,
@@ -9,23 +10,23 @@ const props = defineProps({
   selectedIndex: {
     type: Number,
     default: -1,
-  }
-})
+  },
+});
 
-function getSelectedIndex() {
-  return props.selectedIndex + 1;
-}
+// const selectedIndex = computed(() => props.selectedIndex + 1);
 
-function isSelected() {
-  return props.selectedIndex !== -1;
-}
+const isSelected = computed(() => props.selectedIndex !== -1);
 
 </script>
 
 <template>
   <button
-    class="relative flex flex-col gap-1 p-2 items-center justify-center hover:cursor-pointer rounded-lg dark:hover:bg-slate-700"
-    :class="[isSelected() ? 'bg-gray-200 dark:bg-gray-900' : 'hover:bg-gray-100']"
+    class="relative flex flex-col gap-1 p-2 items-center justify-center hover:cursor-pointer rounded-md"
+    :class="[
+      isSelected
+        ? 'bg-pink-500/20'
+        : 'hover:drop-shadow-[0_0_2em_#ec4899]',
+    ]"
   >
     <FruitImage
       :fruit="fruit"
@@ -35,10 +36,12 @@ function isSelected() {
       {{ fruit }}
     </div>
     <div
-      v-if="isSelected()"
+      v-if="isSelected"
       class="absolute top-2 right-2 text-gray-700 border border-gray-400 rounded-full flex items-center justify-center h-5 w-5 bg-white"
     >
-      <span class="text-xs font-medium text-gray-700">{{ getSelectedIndex() }}</span>
+      <span class="text-xs font-medium text-gray-700">{{
+        selectedIndex + 1
+      }}</span>
     </div>
   </button>
 </template>
