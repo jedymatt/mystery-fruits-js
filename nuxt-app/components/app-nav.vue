@@ -14,14 +14,14 @@ function toggleTheme() {
 <template>
   <div>
     <nav>
-      <div class="p-2 flex flex-row gap-2 items-center">
+      <div class="flex flex-row items-center gap-2 p-2">
         <NuxtLink
           to="/"
-          class="font-bold text-xl hover:bg-pink-100 dark:hover:bg-pink-500 p-2 rounded-md"
+          class="p-2 text-xl font-bold rounded-md hover:bg-pink-100 dark:hover:bg-pink-500"
         >
           Mystery Fruits
         </NuxtLink>
-        <div class="flex flex-grow items-stretch justify-between">
+        <div class="flex items-stretch justify-between flex-grow">
           <div class="flex flex-row">
             <NuxtLink
               to="/credits"
@@ -42,7 +42,7 @@ function toggleTheme() {
           </div>
           <div class="flex flex-row gap-2">
             <a
-              class="flex items-center p-2 hover:bg-pink-100 rounded-md dark:hover:bg-pink-500"
+              class="flex items-center p-2 rounded-md hover:bg-pink-100 dark:hover:bg-pink-500"
               href="https://www.github.com/jedymatt/mystery-fruits-js"
               target="_blank"
               rel="noopener noreferrer"
@@ -60,17 +60,16 @@ function toggleTheme() {
                 v-if="colorMode.preference === themes[2]"
                 name="heroicons:computer-desktop-solid"
               />
-              
+
               <Icon
                 v-else-if="colorMode.preference === themes[0]"
                 name="heroicons:sun-solid"
               />
-              
+
               <Icon
                 v-else="colorMode.preference === themes[1]"
                 name="heroicons:moon-solid"
               />
-              
             </button>
           </div>
         </div>

@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from "vue";
-import FruitImage from "./FruitImage.vue";
 const props = defineProps({
   fruit: {
     type: String,
@@ -20,18 +19,18 @@ const isSelected = computed(() => props.selectedIndex !== -1);
 
 <template>
   <button
-    class="relative flex flex-col gap-1 p-2 items-center justify-center hover:cursor-pointer rounded-md"
+    class="relative flex flex-col items-center justify-center gap-1 p-2 rounded-md hover:cursor-pointer"
     :class="[
       isSelected ? 'bg-pink-500/20' : 'hover:drop-shadow-[0_0_2em_#ec4899]',
     ]"
   >
-    <FruitImage :fruit="fruit" class="h-16 w-16" />
-    <div class="text-xs uppercase font-semibold">
+    <FruitImage class="aspect-square" :fruit="fruit" />
+    <div class="text-xs font-semibold uppercase">
       {{ fruit }}
     </div>
     <div
       v-if="isSelected"
-      class="absolute top-2 right-2 text-gray-700 border border-gray-400 rounded-full flex items-center justify-center h-5 w-5 bg-white"
+      class="absolute flex items-center justify-center w-5 h-5 text-gray-700 bg-white border border-gray-400 rounded-full top-2 right-2"
     >
       <span class="text-xs font-medium text-gray-700">{{
         selectedIndex + 1
