@@ -1,0 +1,13 @@
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "overrides": [
+    {
+      "files": "*.vue",
+      "options": {
+        "tabWidth": 2,
+        "parser": "vue"
+      }
+    }
+  ]
+}

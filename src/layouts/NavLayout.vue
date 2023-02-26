@@ -7,7 +7,7 @@ const { toggleDarkMode } = useTheme();
 </script>
 
 <template>
-  <nav class="text-gray-800 dark:text-white">
+  <nav class="text-gray-800 dark:text-pink-50">
     <div class="p-2 flex flex-row gap-2 items-center">
       <RouterLink
         to="/"
