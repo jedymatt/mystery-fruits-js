@@ -19,9 +19,9 @@ const isSelected = computed(() => props.selectedIndex !== -1);
 
 <template>
   <button
-    class="relative flex flex-col items-center justify-center gap-1 p-2 rounded-md hover:cursor-pointer"
+    class="relative flex flex-col items-center justify-center gap-1 p-2 transition-all duration-300 rounded-md hover:cursor-pointer overflow-clip"
     :class="[
-      isSelected ? 'bg-pink-500/20' : 'hover:drop-shadow-[0_0_2em_#ec4899]',
+      isSelected ? 'bg-pink-500/20' : 'hover:drop-shadow-[0_0_1em_#ec4899] dark:hover:drop-shadow-[0_0_2em_#ec4899]',
     ]"
   >
     <FruitImage class="aspect-square" :fruit="fruit" />
