@@ -1,69 +1,44 @@
-useInstructionuseInstruction<script setup>
-import { computed, onMounted, ref } from "vue";
-
+useInstructionuseInstruction
+<script setup>
+import FruitButton from "@/components/FruitButton.vue";
+import GameOverSection from "@/components/GameOverSection.vue";
 import HistorySection from "@/components/HistorySection.vue";
-import FruitButton from "../components/FruitButton.vue";
-import GameOverSection from "../components/GameOverSection.vue";
-import { useFruits } from "../composables/fruits";
-import { useHistory } from "../composables/history";
-import { countMatchingArray, countMatchingArrayOrder } from "../lib/counter";
 import InstructionBanner from "@/components/InstructionBanner.vue";
+import { useFruits } from "@/composables/fruits";
+import { useHistory } from "@/composables/history";
+import { countMatchingArray, countMatchingArrayOrder } from "@/lib/counter";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 
-const { hiddenFruits, randomFruits, resetFruits } = useFruits();
+const { hiddenFruits, initialFruits, resetFruits } = useFruits();
 const { history, addToHistory, clearHistory } = useHistory();
 
-const availableAttempts = ref(6);
+const attemptsLeft = ref(6);
 const selectedFruits = ref([]);
+const lastSelectedFruits = ref([]);
 const isGameOver = ref(false);
-const isLoading = ref(false);
+const isDisabled = ref(false);
 
-function selectFruit(fruit) {
-  if (isLoading.value || isGameOver.value) return;
+const presentFruitsCount = computed(() => {
+  return countMatchingArray(hiddenFruits.value, lastSelectedFruits.value);
+});
+const orderedFruitsCount = computed(() => {
+  return countMatchingArrayOrder(hiddenFruits.value, lastSelectedFruits.value);
+});
 
-  if (selectedFruits.value.length < 3) {
-    if (selectedFruits.value.includes(fruit)) {
-      unselectFruit(fruit);
-    } else {
-      selectedFruits.value.push(fruit);
-    }
-  }
-
-  if (selectedFruits.value.length === 3) {
-    isLoading.value = true;
-    availableAttempts.value--;
-
-    setTimeout(function () {
-      isGameOver.value =
-        availableAttempts.value <= 0 ||
-        countMatchingArray(selectedFruits.value, hiddenFruits.value) ===
-        hiddenFruits.value.length;
-
-      if (!isGameOver.value) {
-        addSelectedFruitsToHistory();
-        clearSelectedFruits();
-      }
-
-      isLoading.value = false;
-    }, 400);
-  }
-}
-
-function clearSelectedFruits() {
-  selectedFruits.value = [];
-}
-
-function unselectFruit(fruit) {
-  selectedFruits.value = selectedFruits.value.filter((f) => f !== fruit);
+function toggleFruit(fruit) {
+  nextTick(
+    () =>
+      (selectedFruits.value = selectedFruits.value.includes(fruit)
+        ? selectedFruits.value.filter((e) => e !== fruit)
+        : [...selectedFruits.value, fruit])
+  );
 }
 
 function addSelectedFruitsToHistory() {
   addToHistory({
-    selectedFruits: selectedFruits.value,
-    correctFruits: countMatchingArray(hiddenFruits.value, selectedFruits.value),
-    correctFruitsOrder: countMatchingArrayOrder(
-      hiddenFruits.value,
-      selectedFruits.value
-    ),
+    selectedFruits: lastSelectedFruits.value,
+    correctFruits: presentFruitsCount.value,
+    correctFruitsOrder: orderedFruitsCount.value,
   });
 }
 
@@ -75,9 +50,10 @@ function restartGame() {
   resetFruits();
 
   selectedFruits.value = [];
-  availableAttempts.value = 6;
+  attemptsLeft.value = 6;
   clearHistory();
   isGameOver.value = false;
+  isDisabled.value = false;
   console.log(`Answer: ${hiddenFruits.value}`);
 }
 
@@ -85,7 +61,35 @@ onMounted(() => {
   console.log(`Answer: ${hiddenFruits.value}`);
 });
 
-const reversedHistory = computed(() => history.value.slice().reverse());
+watch(selectedFruits, () => {
+  if (selectedFruits.value.length === 3) {
+    isDisabled.value = true;
+    setTimeout(() => {
+      lastSelectedFruits.value = selectedFruits.value.slice(0);
+      selectedFruits.value = [];
+      addSelectedFruitsToHistory();
+      attemptsLeft.value--;
+      isDisabled.value = false;
+    }, 400);
+  }
+});
+
+watch(isGameOver, (isGameOver) => {
+  if (isGameOver) {
+    isDisabled.value = true;
+  }
+});
+
+watch(attemptsLeft, () => {
+  if (presentFruitsCount.value === 3 && orderedFruitsCount.value === 3) {
+    isGameOver.value = true;
+    return;
+  }
+
+  if (attemptsLeft.value === 0) {
+    isGameOver.value = true;
+  }
+});
 </script>
 
 <template>
@@ -99,33 +103,30 @@ const reversedHistory = computed(() => history.value.slice().reverse());
       <div class="h-full w-full">
         <div class="mt-4 text-pink-500 font-semibold">
           Remaining Attempts:
-          <span class="font-black">{{ availableAttempts }}</span>
+          <span class="font-black">{{ attemptsLeft }}</span>
         </div>
         <div class="mt-4 grid grid-cols-3 gap-2 place-items-center">
-          <div
-            v-for="fruit in randomFruits"
-            :key="fruit"
-          >
+          <div v-for="fruit in initialFruits" :key="fruit">
             <FruitButton
               :fruit="fruit"
               :selected-index="getSelectedFruitIndex(fruit)"
-              :disabled="isLoading.value"
+              :disabled="isDisabled"
               class="h-24 w-24"
-              @click="selectFruit(fruit)"
+              @click="toggleFruit(fruit)"
             />
           </div>
         </div>
       </div>
       <div class="h-full w-full">
-        <HistorySection :history="reversedHistory" />
+        <HistorySection :history="history" />
       </div>
     </div>
     <GameOverSection
       v-if="isGameOver"
       :restart-game="restartGame"
       :hidden-fruits="hiddenFruits"
-      :attempts-left="availableAttempts"
-      :selected-fruits="selectedFruits"
+      :attempts-left="attemptsLeft"
+      :selected-fruits="lastSelectedFruits"
     />
   </main>
 </template>

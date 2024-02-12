@@ -1,17 +1,44 @@
 import { ref } from "vue";
-import { getRandomUniqueFrom, randomUniqueFruits } from "../lib/fruits";
+
+const fruits = [
+  "apple",
+  "banana",
+  "orange",
+  "strawberry",
+  "watermelon",
+  "kiwi",
+  "grape",
+  "cherry",
+  "peach",
+  "pineapple",
+  "mango",
+  "papaya",
+  "coconut",
+  "avocado",
+  "peanut",
+];
+
+export function shuffleArray(array) {
+  const copiedArray = array.slice(0);
+  for (let i = copiedArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copiedArray[i], copiedArray[j]] = [copiedArray[j], copiedArray[i]];
+  }
+
+  return copiedArray;
+}
 
 export function useFruits() {
-  const randomFruits = ref(randomUniqueFruits(6));
-  const hiddenFruits = ref(getRandomUniqueFrom(randomFruits.value, 3));
+  const initialFruits = ref(shuffleArray(fruits).slice(0, 6));
+  const hiddenFruits = ref(shuffleArray(initialFruits.value).slice(0, 3));
 
   function resetFruits() {
-    randomFruits.value = randomUniqueFruits(6);
-    hiddenFruits.value = getRandomUniqueFrom(randomFruits.value, 3);
+    initialFruits.value = shuffleArray(fruits).slice(0, 6);
+    hiddenFruits.value = shuffleArray(initialFruits.value).slice(0, 3);
   }
 
   return {
-    randomFruits,
+    initialFruits,
     hiddenFruits,
     resetFruits,
   };
