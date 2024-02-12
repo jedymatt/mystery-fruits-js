@@ -75,12 +75,6 @@ watch(selectedFruits, () => {
   }
 });
 
-watch(isGameOver, (isGameOver) => {
-  if (isGameOver) {
-    isDisabled.value = true;
-  }
-});
-
 watch(attemptsLeft, async () => {
   if (attemptsLeft.value === 6) return;
 
