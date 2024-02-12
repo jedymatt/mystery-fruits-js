@@ -70,7 +70,6 @@ function restartGame() {
 
 watch(selectedFruits, () => {
   if (selectedFruits.value.length === 3) {
-    console.log(selectedFruits);
     attemptsLeft.value--;
   }
 });
