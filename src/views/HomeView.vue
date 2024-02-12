@@ -7,8 +7,9 @@ import InstructionBanner from "@/components/InstructionBanner.vue";
 import { useFruits } from "@/composables/fruits";
 import { useHistory } from "@/composables/history";
 import { countMatchingArray, countMatchingArrayOrder } from "@/lib/counter";
-import { computed, nextTick, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 
+// user takes an attempt >> disable inputs >> check if gameover (disable inputs) >> add to history >> enable inputs
 const { hiddenFruits, initialFruits, resetFruits } = useFruits();
 const { history, addToHistory, clearHistory } = useHistory();
 
@@ -26,12 +27,21 @@ const orderedFruitsCount = computed(() => {
 });
 
 function toggleFruit(fruit) {
-  nextTick(
-    () =>
-      (selectedFruits.value = selectedFruits.value.includes(fruit)
-        ? selectedFruits.value.filter((e) => e !== fruit)
-        : [...selectedFruits.value, fruit])
-  );
+  const fruitIndexInSelectedFruits = selectedFruits.value.indexOf(fruit);
+
+  if (fruitIndexInSelectedFruits === -1) {
+    selectedFruits.value = [...selectedFruits.value, fruit];
+    return;
+  }
+
+  if (fruitIndexInSelectedFruits === selectedFruits.value.length - 1) {
+    selectedFruits.value = selectedFruits.value.slice(0, -1);
+    return;
+  }
+
+  if (fruitIndexInSelectedFruits === 0) {
+    selectedFruits.value = selectedFruits.value.slice(0, 1);
+  }
 }
 
 function addSelectedFruitsToHistory() {
@@ -50,6 +60,7 @@ function restartGame() {
   resetFruits();
 
   selectedFruits.value = [];
+  lastSelectedFruits.value = [];
   attemptsLeft.value = 6;
   clearHistory();
   isGameOver.value = false;
@@ -57,20 +68,10 @@ function restartGame() {
   console.log(`Answer: ${hiddenFruits.value}`);
 }
 
-onMounted(() => {
-  console.log(`Answer: ${hiddenFruits.value}`);
-});
-
 watch(selectedFruits, () => {
   if (selectedFruits.value.length === 3) {
-    isDisabled.value = true;
-    setTimeout(() => {
-      lastSelectedFruits.value = selectedFruits.value.slice(0);
-      selectedFruits.value = [];
-      addSelectedFruitsToHistory();
-      attemptsLeft.value--;
-      isDisabled.value = false;
-    }, 400);
+    console.log(selectedFruits);
+    attemptsLeft.value--;
   }
 });
 
@@ -80,15 +81,35 @@ watch(isGameOver, (isGameOver) => {
   }
 });
 
-watch(attemptsLeft, () => {
+watch(attemptsLeft, async () => {
+  if (attemptsLeft.value === 6) return;
+
+  isDisabled.value = true;
+  await new Promise((resolve) => {
+    setTimeout(() => resolve(), 400);
+  });
+
+  lastSelectedFruits.value = selectedFruits.value.slice(0);
+  selectedFruits.value = [];
+
   if (presentFruitsCount.value === 3 && orderedFruitsCount.value === 3) {
     isGameOver.value = true;
+    isDisabled.value = true;
     return;
   }
 
   if (attemptsLeft.value === 0) {
     isGameOver.value = true;
+    isDisabled.value = true;
+    return;
   }
+
+  addSelectedFruitsToHistory();
+  isDisabled.value = false;
+});
+
+onMounted(() => {
+  console.log(`Answer: ${hiddenFruits.value}`);
 });
 </script>
 
