@@ -11,6 +11,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
+  base: '/mystery-fruits-js/',
   server: {
     host: 'jedymatt.dev',
     base: '/mystery-fruits-js/'
