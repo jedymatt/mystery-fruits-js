@@ -10,5 +10,8 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    host: 'mystery-fruits-js.jedymatt.dev'
   }
 })
