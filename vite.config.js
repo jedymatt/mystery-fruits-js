@@ -12,6 +12,7 @@ export default defineConfig({
     }
   },
   server: {
-    host: 'mystery-fruits-js.jedymatt.dev'
+    host: 'jedymatt.dev',
+    base: '/mystery-fruits-js/'
   }
 })
