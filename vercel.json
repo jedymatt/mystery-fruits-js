@@ -9,7 +9,7 @@
   "rewrites": [
     {
       "source": "/mystery-fruits-js/:match*",
-      "destination": "/mystery-fruits-js/:match*"
+      "destination": "/:match*"
     }
   ]
 }
