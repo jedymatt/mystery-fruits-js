@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/mystery-fruits-js/(.*)",
-      "destination": "/$1"
+      "destination": "/mystery-fruits-js/$1"
     }
   ]
 }
