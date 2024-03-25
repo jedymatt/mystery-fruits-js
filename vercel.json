@@ -1,9 +1,15 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
- "rewrites": [
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/mystery-fruits-js"
+    }
+  ],
+  "rewrites": [
     {
       "source": "/mystery-fruits-js/:match*",
       "destination": "/mystery-fruits-js/:match*"
     }
- ]
+  ]
 }
