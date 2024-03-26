@@ -29,23 +29,21 @@ fetchContributors();
         <div
           v-for="contributor in contributors"
           :key="contributor"
-          class="p-2 rounded-md flex flex-row gap-2"
+          class="p-2 rounded-md flex items-center gap-2"
         >
           <img
             :src="contributor.avatar_url ?? contributor.gravatar_id"
             alt="contributor.login"
             class="h-12 w-12 rounded-full border-2 border-pink-500"
           >
-          <div>
-            <a
-              :href="contributor.html_url"
-              target="_blank"
-              rel="noopener"
-              class="font-semibold text-pink-500"
-            >{{
-              contributor.login
-            }}</a>
-          </div>
+          <a
+            :href="contributor.html_url"
+            target="_blank"
+            rel="noopener"
+            class="font-semibold text-pink-500"
+          >{{
+            contributor.login
+          }}</a>
         </div>
       </div>
     </div>
