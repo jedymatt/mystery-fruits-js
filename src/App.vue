@@ -12,8 +12,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="antialiased">
-    <div class="flex flex-col min-h-screen">
+  <div class="min-h-screen antialiased bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+    <div class="flex min-h-screen flex-col">
       <NavLayout />
       <RouterView
         v-slot="{ Component }"

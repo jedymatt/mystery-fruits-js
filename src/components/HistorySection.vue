@@ -31,8 +31,26 @@ withDefaults(defineProps<{
       <div
         v-for="(items, index) in history"
         :key="index"
-        class="flex items-center justify-center gap-3 rounded-xl bg-gray-50 px-3 py-2.5 dark:bg-gray-800/60"
+        class="flex items-center justify-center gap-3 rounded-xl px-3 py-2.5"
+        :class="
+          index === 0
+            ? 'bg-pink-50/60 ring-1 ring-pink-200/50 dark:bg-pink-950/20 dark:ring-pink-800/30'
+            : 'bg-gray-50 dark:bg-gray-800/60'
+        "
       >
+        <span
+          v-if="index === 0"
+          class="shrink-0 rounded-full bg-pink-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none text-white"
+        >
+          New
+        </span>
+        <span
+          v-else
+          class="shrink-0 w-7 text-center text-[10px] font-semibold text-gray-300 dark:text-gray-600"
+        >
+          #{{ history.length - index }}
+        </span>
+
         <div
           v-for="fruit in items.selectedFruits"
           :key="fruit"
