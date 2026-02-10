@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useInstruction } from '@/composables/common';
 import { X } from 'lucide-vue-next'
 

@@ -1,6 +1,6 @@
 import { ref } from "vue";
 
-const fruits = [
+const fruits: string[] = [
   "apple",
   "banana",
   "orange",
@@ -18,7 +18,7 @@ const fruits = [
   "peanut",
 ];
 
-export function shuffleArray(array) {
+export function shuffleArray<T>(array: T[]): T[] {
   const copiedArray = array.slice(0);
   for (let i = copiedArray.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -29,8 +29,8 @@ export function shuffleArray(array) {
 }
 
 export function useFruits() {
-  const initialFruits = ref(shuffleArray(fruits).slice(0, 6));
-  const hiddenFruits = ref(shuffleArray(initialFruits.value).slice(0, 3));
+  const initialFruits = ref<string[]>(shuffleArray(fruits).slice(0, 6));
+  const hiddenFruits = ref<string[]>(shuffleArray(initialFruits.value).slice(0, 3));
 
   function resetFruits() {
     initialFruits.value = shuffleArray(fruits).slice(0, 6);

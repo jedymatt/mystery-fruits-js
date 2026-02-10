@@ -4,10 +4,10 @@ import moment from 'moment';
 export const useInstruction = () => {
     const showInstructionAt = localStorage.getItem('common.show_instruction_at');
 
-    const showInstruction = ref(showInstructionAt < moment());
+    const showInstruction = ref<boolean>(!showInstructionAt || showInstructionAt < moment().toISOString());
 
     function closeInstruction() {
-        localStorage.setItem('common.show_instruction_at', moment().add(3, 'days'));
+        localStorage.setItem('common.show_instruction_at', moment().add(3, 'days').toISOString());
         showInstruction.value = false;
     }
 
@@ -28,7 +28,6 @@ export const useTheme = () => {
         } else {
             element.classList.add('dark')
         }
-        // document.documentElement.classList.toggle('dark');
     }
 
     return {

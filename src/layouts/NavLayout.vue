@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import GithubIcon from '@/components/icons/GithubIcon.vue';
 import { useTheme } from '@/composables/common';

@@ -1,14 +1,19 @@
-<script setup>
+<script setup lang="ts">
 import axios from 'axios'
 import { ref } from 'vue';
 
-const contributors = ref([])
+interface Contributor {
+    login: string;
+    avatar_url: string;
+    gravatar_id: string;
+    html_url: string;
+}
+
+const contributors = ref<Contributor[]>([])
 
 const fetchContributors = () => {
-    axios.get('https://api.github.com/repos/jedymatt/mystery-fruits-js/contributors')
+    axios.get<Contributor[]>('https://api.github.com/repos/jedymatt/mystery-fruits-js/contributors')
         .then(response => {
-            // console.log(response.data);
-            // set the data to the state
             contributors.value = response.data;
         })
         .catch(error => {
@@ -28,7 +33,7 @@ fetchContributors();
       <div class="mt-4">
         <div
           v-for="contributor in contributors"
-          :key="contributor"
+          :key="contributor.login"
           class="p-2 rounded-md flex items-center gap-2"
         >
           <img

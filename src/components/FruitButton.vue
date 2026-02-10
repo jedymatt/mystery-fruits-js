@@ -1,19 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import FruitImage from "./FruitImage.vue";
-const props = defineProps({
-  fruit: {
-    type: String,
-    required: true,
-  },
 
-  selectedIndex: {
-    type: Number,
-    default: -1,
-  },
+const props = withDefaults(defineProps<{
+  fruit: string;
+  selectedIndex?: number;
+}>(), {
+  selectedIndex: -1,
 });
-
-// const selectedIndex = computed(() => props.selectedIndex + 1);
 
 const isSelected = computed(() => props.selectedIndex !== -1);
 

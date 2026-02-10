@@ -1,5 +1,5 @@
 useInstructionuseInstruction
-<script setup>
+<script setup lang="ts">
 import FruitButton from "@/components/FruitButton.vue";
 import GameOverSection from "@/components/GameOverSection.vue";
 import HistorySection from "@/components/HistorySection.vue";
@@ -13,9 +13,9 @@ import { computed, onMounted, ref, watch } from "vue";
 const { hiddenFruits, initialFruits, resetFruits } = useFruits();
 const { history, addToHistory, clearHistory } = useHistory();
 
-const attemptsLeft = ref(6);
-const selectedFruits = ref([]);
-const lastSelectedFruits = ref([]);
+const attemptsLeft = ref<number>(6);
+const selectedFruits = ref<string[]>([]);
+const lastSelectedFruits = ref<string[]>([]);
 const isGameOver = ref(false);
 const isDisabled = ref(false);
 
@@ -26,7 +26,7 @@ const orderedFruitsCount = computed(() => {
   return countMatchingArrayOrder(hiddenFruits.value, lastSelectedFruits.value);
 });
 
-function toggleFruit(fruit) {
+function toggleFruit(fruit: string) {
   const fruitIndexInSelectedFruits = selectedFruits.value.indexOf(fruit);
 
   if (fruitIndexInSelectedFruits === -1) {
@@ -52,7 +52,7 @@ function addSelectedFruitsToHistory() {
   });
 }
 
-function getSelectedFruitIndex(fruit) {
+function getSelectedFruitIndex(fruit: string) {
   return selectedFruits.value.indexOf(fruit);
 }
 
@@ -78,7 +78,7 @@ watch(attemptsLeft, async () => {
   if (attemptsLeft.value === 6) return;
 
   isDisabled.value = true;
-  await new Promise((resolve) => {
+  await new Promise<void>((resolve) => {
     setTimeout(() => resolve(), 400);
   });
 

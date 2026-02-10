@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { RouterView } from 'vue-router'
 import NavLayout from '@/layouts/NavLayout.vue'
 import { onMounted } from 'vue';

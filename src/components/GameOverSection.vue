@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { RefreshCw } from 'lucide-vue-next';
 import { computed } from 'vue';
 import FruitImageVue from '../components/FruitImage.vue';
@@ -6,24 +6,13 @@ import HeartCrackIconVue from '../components/icons/HeartCrackIcon.vue';
 import TrophyIconVue from '../components/icons/TrophyIcon.vue';
 import { countMatchingArrayOrder } from '../lib/counter';
 
-const props = defineProps({
-  hiddenFruits: {
-    type: Array,
-    required: true,
-  },
-  selectedFruits: {
-    type: Array,
-    required: true,
-  },
-  restartGame: {
-    type: Function,
-    required: true,
-  },
-  attemptsLeft: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
+const props = withDefaults(defineProps<{
+  hiddenFruits: string[];
+  selectedFruits: string[];
+  restartGame: () => void;
+  attemptsLeft?: number;
+}>(), {
+  attemptsLeft: 0,
 });
 
 const remark = computed(() => isSuccess() ? `You guessed it all with ${props.attemptsLeft} remaining attempts.` : 'You have no more attempts left.');

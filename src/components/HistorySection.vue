@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import FruitImage from './FruitImage.vue';
+import type { HistoryItem } from '@/composables/history';
 
-defineProps({
-  history: {
-    type: Array,
-    default: () => []
-  },
+withDefaults(defineProps<{
+  history?: HistoryItem[];
+}>(), {
+  history: () => [],
 })
 </script>
 
@@ -18,8 +18,8 @@ defineProps({
       class="mt-4 border divide-y rounded-md grid grid-flow-row"
     >
       <div
-        v-for="items in history"
-        :key="items"
+        v-for="(items, index) in history"
+        :key="index"
       >
         <div class="grid grid-cols-5 self-center place-content-center animate-slide-in">
           <div
