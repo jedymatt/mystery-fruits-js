@@ -25,12 +25,12 @@ withDefaults(defineProps<{
 
     <TransitionGroup
       tag="div"
-      enter-active-class="animate-slide-in"
+      name="history"
       class="space-y-2"
     >
       <div
         v-for="(items, index) in history"
-        :key="index"
+        :key="items.id"
         class="flex items-center justify-center gap-3 rounded-xl px-3 py-2.5"
         :class="
           index === 0
@@ -46,7 +46,7 @@ withDefaults(defineProps<{
         </span>
         <span
           v-else
-          class="shrink-0 w-7 text-center text-[10px] font-semibold text-gray-300 dark:text-gray-600"
+          class="w-7 shrink-0 text-center text-[10px] font-semibold text-gray-300 dark:text-gray-600"
         >
           #{{ history.length - index }}
         </span>
@@ -90,3 +90,24 @@ withDefaults(defineProps<{
     </TransitionGroup>
   </div>
 </template>
+
+<style scoped>
+.history-enter-active {
+  animation: slide-in 0.4s ease-out;
+}
+
+.history-move {
+  transition: transform 0.4s ease;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

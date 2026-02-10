@@ -1,6 +1,9 @@
 import { ref } from "vue";
 
+let nextId = 0;
+
 export interface HistoryItem {
+  id: number;
   selectedFruits: string[];
   correctFruits: number;
   correctFruitsOrder: number;
@@ -9,8 +12,8 @@ export interface HistoryItem {
 export function useHistory() {
   const history = ref<HistoryItem[]>([]);
 
-  function addToHistory(items: HistoryItem) {
-    history.value.unshift(items);
+  function addToHistory(items: Omit<HistoryItem, "id">) {
+    history.value.unshift({ ...items, id: nextId++ });
   }
 
   function clearHistory() {
