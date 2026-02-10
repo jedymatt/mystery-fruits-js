@@ -9,27 +9,23 @@ const { showInstruction, closeInstruction } = useInstruction();
   <Transition leave-active-class="animate-close-section">
     <div
       v-if="showInstruction"
-      class="mb-10 bg-red-100 block p-7 border-2 border-red-300 rounded-lg relative overflow-hidden dark:bg-pink-500/50 text-sm"
+      class="mb-5 flex items-start gap-3 overflow-hidden rounded-xl border border-pink-200 bg-pink-50 p-4 text-sm text-pink-900 dark:border-pink-800 dark:bg-pink-950/40 dark:text-pink-100"
     >
+      <div class="hidden sm:block w-1 self-stretch shrink-0 rounded-full bg-pink-300 dark:bg-pink-700" />
+      <div class="flex-1 space-y-1">
+        <p class="font-semibold">
+          Find the 3 mystery fruits in the correct order!
+        </p>
+        <p class="text-pink-700 dark:text-pink-300">
+          You have 6 attempts. Check your history below after each guess.
+        </p>
+      </div>
       <button
-        class="bg-red-400 p-1 rounded-full h-6 w-6 flex items-center justify-center  absolute top-3 right-3 hover:bg-red-900  cursor-pointer transition-all delay-75 ease-in "
+        class="shrink-0 flex h-6 w-6 items-center justify-center rounded-full bg-pink-200 text-pink-700 transition-colors hover:bg-pink-300 dark:bg-pink-800 dark:text-pink-300 dark:hover:bg-pink-700 cursor-pointer"
         @click="closeInstruction"
       >
-        <X class="text-red-900 hover:text-red-400 dark:text-white" />
+        <X class="h-3.5 w-3.5" />
       </button>
-
-      <p>Hello Stranger 🕵️‍♂️</p>
-      <p>
-        Are you in search of the mystery fruits🍓? You’ve come to the right
-        place🌴. All you have to do is select the mystery fruits in the correct
-        order 1️⃣ 2️⃣ 3️⃣.
-      </p>
-      <p>
-        You have 6 attempts before the fruits are lost forever😞. You can check
-        the history tab on the left to see details on your previous
-        selections⌛.
-      </p>
-      <p>Good luck and Have fun🌟.</p>
     </div>
   </Transition>
 </template>

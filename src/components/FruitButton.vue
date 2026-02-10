@@ -5,37 +5,37 @@ import FruitImage from "./FruitImage.vue";
 const props = withDefaults(defineProps<{
   fruit: string;
   selectedIndex?: number;
+  disabled?: boolean;
 }>(), {
   selectedIndex: -1,
+  disabled: false,
 });
 
 const isSelected = computed(() => props.selectedIndex !== -1);
-
 </script>
 
 <template>
   <button
-    class="relative flex flex-col gap-1 p-2 items-center justify-center hover:cursor-pointer rounded-md"
+    class="group relative aspect-square w-full rounded-xl border-2 p-3 transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-50"
     :class="[
       isSelected
-        ? 'bg-pink-500/20'
-        : 'hover:drop-shadow-[0_0_2em_#ec4899]',
+        ? 'scale-95 border-pink-400 bg-pink-500/15 shadow-md dark:border-pink-500 dark:bg-pink-500/20'
+        : 'border-transparent bg-gray-50 hover:-translate-y-0.5 hover:border-pink-200 hover:shadow-md dark:bg-gray-700/50 dark:hover:border-pink-600',
     ]"
+    :disabled="disabled"
   >
     <FruitImage
       :fruit="fruit"
-      class="h-16 w-16"
+      class="mx-auto h-12 w-12 transition-transform duration-150 group-hover:scale-110 sm:h-14 sm:w-14"
     />
-    <div class="text-xs uppercase font-semibold">
+    <div class="mt-1 text-xs font-semibold uppercase text-gray-600 dark:text-gray-300">
       {{ fruit }}
     </div>
     <div
       v-if="isSelected"
-      class="absolute top-2 right-2 text-gray-700 border border-gray-400 rounded-full flex items-center justify-center h-5 w-5 bg-white"
+      class="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-pink-500 text-white ring-2 ring-white animate-badge-pop dark:ring-gray-800"
     >
-      <span class="text-xs font-medium text-gray-700">{{
-        selectedIndex + 1
-      }}</span>
+      <span class="text-xs font-bold leading-none">{{ selectedIndex + 1 }}</span>
     </div>
   </button>
 </template>

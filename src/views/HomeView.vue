@@ -1,4 +1,3 @@
-useInstructionuseInstruction
 <script setup lang="ts">
 import FruitButton from "@/components/FruitButton.vue";
 import GameOverSection from "@/components/GameOverSection.vue";
@@ -107,36 +106,50 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="md:p-12 p-2 relative">
+  <main class="mx-auto w-full max-w-lg px-4 py-6 md:py-10">
     <InstructionBanner />
     <div
       v-if="!isGameOver"
       id="game"
-      class="grid lg:grid-cols-2 place-items-start justify-items-center content-center gap-4"
+      class="space-y-5"
     >
-      <div class="h-full w-full">
-        <div class="mt-4 text-pink-500 font-semibold">
-          Remaining Attempts:
-          <span class="font-black">{{ attemptsLeft }}</span>
-        </div>
-        <div class="mt-4 grid grid-cols-3 gap-2 place-items-center">
+      <!-- Attempts indicator -->
+      <div class="flex flex-col items-center gap-1.5">
+        <div class="flex items-center gap-2">
           <div
+            v-for="i in 6"
+            :key="i"
+            class="h-2.5 w-2.5 rounded-full transition-all duration-300"
+            :class="
+              i <= attemptsLeft
+                ? 'bg-pink-500 shadow-[0_0_6px_rgba(236,72,153,0.5)]'
+                : 'bg-gray-200 dark:bg-gray-700'
+            "
+          />
+        </div>
+        <span class="text-xs font-medium text-gray-400 dark:text-gray-500">
+          Attempts: {{ attemptsLeft }}/6
+        </span>
+      </div>
+
+      <!-- Game board card -->
+      <div
+        class="rounded-2xl border border-gray-200 bg-white/80 p-4 shadow-sm backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/80"
+      >
+        <div class="grid grid-cols-3 gap-3">
+          <FruitButton
             v-for="fruit in initialFruits"
             :key="fruit"
-          >
-            <FruitButton
-              :fruit="fruit"
-              :selected-index="getSelectedFruitIndex(fruit)"
-              :disabled="isDisabled"
-              class="h-24 w-24"
-              @click="toggleFruit(fruit)"
-            />
-          </div>
+            :fruit="fruit"
+            :selected-index="getSelectedFruitIndex(fruit)"
+            :disabled="isDisabled"
+            @click="toggleFruit(fruit)"
+          />
         </div>
       </div>
-      <div class="h-full w-full">
-        <HistorySection :history="history" />
-      </div>
+
+      <!-- History -->
+      <HistorySection :history="history" />
     </div>
     <GameOverSection
       v-if="isGameOver"
