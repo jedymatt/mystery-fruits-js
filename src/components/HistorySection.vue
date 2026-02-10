@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import FruitImage from './FruitImage.vue';
+import SectionLabel from './SectionLabel.vue';
+import StatBadge from './StatBadge.vue';
 import { Check, ArrowRightLeft } from 'lucide-vue-next';
 import type { HistoryItem } from '@/composables/history';
 
@@ -12,9 +14,7 @@ withDefaults(defineProps<{
 
 <template>
   <div>
-    <h2 class="mb-2 text-center text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-      Previous Attempts
-    </h2>
+    <SectionLabel>Previous Attempts</SectionLabel>
 
     <p
       v-if="history.length === 0"
@@ -63,28 +63,20 @@ withDefaults(defineProps<{
         </div>
 
         <div class="flex items-center gap-2">
-          <span
-            class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium"
-            :class="
-              items.correctFruits > 0
-                ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400'
-                : 'bg-gray-100 text-gray-400 dark:bg-gray-700 dark:text-gray-500'
-            "
+          <StatBadge
+            :count="items.correctFruits"
+            color="amber"
           >
             <Check class="h-3 w-3" />
             {{ items.correctFruits }} fruit
-          </span>
-          <span
-            class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium"
-            :class="
-              items.correctFruitsOrder > 0
-                ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400'
-                : 'bg-gray-100 text-gray-400 dark:bg-gray-700 dark:text-gray-500'
-            "
+          </StatBadge>
+          <StatBadge
+            :count="items.correctFruitsOrder"
+            color="emerald"
           >
             <ArrowRightLeft class="h-3 w-3" />
             {{ items.correctFruitsOrder }} order
-          </span>
+          </StatBadge>
         </div>
       </div>
     </TransitionGroup>

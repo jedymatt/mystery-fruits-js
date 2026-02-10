@@ -2,6 +2,7 @@
 import { RefreshCw, Trophy, HeartCrack, Sparkles } from 'lucide-vue-next';
 import { computed } from 'vue';
 import FruitImage from './FruitImage.vue';
+import SectionLabel from './SectionLabel.vue';
 import { countMatchingArrayOrder } from '../lib/counter';
 
 const props = withDefaults(defineProps<{
@@ -76,9 +77,7 @@ const remark = computed(() =>
 
     <!-- Answer reveal -->
     <div>
-      <p class="mb-2 text-center text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-        The Answer
-      </p>
+      <SectionLabel>The Answer</SectionLabel>
       <div class="flex gap-4">
         <div
           v-for="(fruit, index) in hiddenFruits"

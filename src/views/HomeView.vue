@@ -3,6 +3,7 @@ import FruitButton from "@/components/FruitButton.vue";
 import GameOverSection from "@/components/GameOverSection.vue";
 import HistorySection from "@/components/HistorySection.vue";
 import InstructionBanner from "@/components/InstructionBanner.vue";
+import PageContainer from "@/components/PageContainer.vue";
 import { useFruits } from "@/composables/fruits";
 import { useHistory } from "@/composables/history";
 import { countMatchingArray, countMatchingArrayOrder } from "@/lib/counter";
@@ -106,7 +107,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="mx-auto w-full max-w-lg px-4 py-6 md:py-10">
+  <PageContainer>
     <InstructionBanner />
     <div
       v-if="!isGameOver"
@@ -158,5 +159,5 @@ onMounted(() => {
       :attempts-left="attemptsLeft"
       :selected-fruits="lastSelectedFruits"
     />
-  </main>
+  </PageContainer>
 </template>
