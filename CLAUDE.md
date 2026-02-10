@@ -17,7 +17,7 @@ No test framework is configured.
 
 ## Architecture
 
-**Vue 3 SPA** using Composition API (no Vuex/Pinia). State is managed through composables in `src/composables/`.
+**Vue 3 SPA** using Composition API (no Vuex/Pinia). Package is ESM (`"type": "module"` in package.json). State is managed through composables in `src/composables/`.
 
 ### Key composables
 
@@ -35,8 +35,12 @@ No test framework is configured.
 
 ### Routing
 
-Vue Router v4 with **hash-based history** (`createWebHashHistory`) — three routes: `/` (game), `/credits`, `/contributors`. NProgress bar on route transitions.
+Vue Router v5 with **hash-based history** (`createWebHashHistory`) — three routes: `/` (game), `/credits`, `/contributors`. NProgress bar on route transitions.
 
 ### Styling
 
-Tailwind CSS with dark mode (class strategy). Custom animations `slide-in` and `close-section` defined in `tailwind.config.js`. Path alias `@` → `src/`.
+Tailwind CSS with dark mode (class strategy). Custom animations `slide-in` and `close-section` defined in `tailwind.config.cjs`. Icons from `lucide-vue-next`. Path alias `@` → `src/`.
+
+### Config files
+
+ESLint uses flat config (`eslint.config.js`). PostCSS and Tailwind configs use `.cjs` extension since the project is ESM.
