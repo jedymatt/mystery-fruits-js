@@ -1,6 +1,6 @@
 <script setup>
 import { useInstruction } from '@/composables/common';
-import { XIcon } from '@heroicons/vue/solid'
+import { X } from 'lucide-vue-next'
 
 const { showInstruction, closeInstruction } = useInstruction();
 </script>
@@ -15,7 +15,7 @@ const { showInstruction, closeInstruction } = useInstruction();
         class="bg-red-400 p-1 rounded-full h-6 w-6 flex items-center justify-center  absolute top-3 right-3 hover:bg-red-900  cursor-pointer transition-all delay-75 ease-in "
         @click="closeInstruction"
       >
-        <XIcon class="fill-red-900 hover:fill-red-400 dark:fill-white" />
+        <X class="text-red-900 hover:text-red-400 dark:text-white" />
       </button>
 
       <p>Hello Stranger 🕵️‍♂️</p>

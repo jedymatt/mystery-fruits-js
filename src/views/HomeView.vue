@@ -120,7 +120,10 @@ onMounted(() => {
           <span class="font-black">{{ attemptsLeft }}</span>
         </div>
         <div class="mt-4 grid grid-cols-3 gap-2 place-items-center">
-          <div v-for="fruit in initialFruits" :key="fruit">
+          <div
+            v-for="fruit in initialFruits"
+            :key="fruit"
+          >
             <FruitButton
               :fruit="fruit"
               :selected-index="getSelectedFruitIndex(fruit)"

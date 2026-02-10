@@ -1,5 +1,5 @@
 <script setup>
-import { RefreshIcon } from '@heroicons/vue/solid';
+import { RefreshCw } from 'lucide-vue-next';
 import { computed } from 'vue';
 import FruitImageVue from '../components/FruitImage.vue';
 import HeartCrackIconVue from '../components/icons/HeartCrackIcon.vue';
@@ -68,7 +68,7 @@ function isSuccess() {
         class="p-2 rounded-md bg-pink-500 text-white hover:bg-pink-600 text-sm font-medium inline-flex items-center justify-center gap-2"
         @click="restartGame()"
       >
-        <RefreshIcon class="h-5 w-5 inline-block" />
+        <RefreshCw class="h-5 w-5 inline-block" />
         Retry
       </button>
     </div>
