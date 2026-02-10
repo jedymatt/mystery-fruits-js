@@ -1,40 +1,72 @@
 @import url('https://rsms.me/inter/inter.css');
+@import 'tailwindcss';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter var', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --animate-slide-in: slide-in 1s ease 0s 1 normal forwards;
+  --animate-close-section: close-section 1s ease 0s 1 normal forwards;
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes close-section {
+  0% {
+    height: auto;
+    opacity: 1;
+    margin-bottom: 40px;
+    padding: 28px;
+  }
+  100% {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    margin-bottom: 0;
+  }
+}
 
 @layer base {
-    h1 {
-        @apply text-3xl font-bold
-    }
+  h1 {
+    @apply text-3xl font-bold;
+  }
 
-    h2 {
-        @apply text-2xl font-bold
-    }
+  h2 {
+    @apply text-2xl font-bold;
+  }
 
-    h3 {
-        @apply text-xl font-bold
-    }
+  h3 {
+    @apply text-xl font-bold;
+  }
 
-    h4 {
-        @apply text-lg font-bold
-    }
+  h4 {
+    @apply text-lg font-bold;
+  }
 
-    h5 {
-        @apply text-base font-bold
-    }
+  h5 {
+    @apply text-base font-bold;
+  }
 
-    h6 {
-        @apply text-sm font-bold
-    }
+  h6 {
+    @apply text-sm font-bold;
+  }
 }
 
 #nprogress .bar {
-    background: #ec4899 !important;
-    box-shadow: 0 0 10px #ec4899, 0 0 5px #ec4899 !important;
+  background: #ec4899 !important;
+  box-shadow: 0 0 10px #ec4899, 0 0 5px #ec4899 !important;
 }
 
 #nprogress .peg {
-    box-shadow: 0 0 10px #ec4899, 0 0 5px #ec4899 !important;
+  box-shadow: 0 0 10px #ec4899, 0 0 5px #ec4899 !important;
 }

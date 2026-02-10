@@ -39,8 +39,8 @@ Vue Router v5 with **hash-based history** (`createWebHashHistory`) — three rou
 
 ### Styling
 
-Tailwind CSS with dark mode (class strategy). Custom animations `slide-in` and `close-section` defined in `tailwind.config.cjs`. Icons from `lucide-vue-next`. Path alias `@` → `src/`.
+Tailwind CSS v4 with CSS-first configuration — all theme customization (fonts, animations, dark mode variant) is in `src/index.css` using `@theme` and `@custom-variant`. Uses `@tailwindcss/vite` plugin instead of PostCSS. Icons from `lucide-vue-next`. Path alias `@` → `src/`.
 
 ### Config files
 
-ESLint uses flat config (`eslint.config.js`). PostCSS and Tailwind configs use `.cjs` extension since the project is ESM.
+ESLint uses flat config (`eslint.config.js`).
