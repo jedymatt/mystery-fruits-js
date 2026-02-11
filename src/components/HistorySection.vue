@@ -40,13 +40,13 @@ withDefaults(defineProps<{
       >
         <span
           v-if="index === 0"
-          class="shrink-0 rounded-full bg-pink-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none text-white"
+          class="hidden shrink-0 rounded-full bg-pink-500 px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none text-white sm:inline"
         >
           New
         </span>
         <span
           v-else
-          class="w-7 shrink-0 text-center text-[10px] font-semibold text-gray-300 dark:text-gray-600"
+          class="hidden w-7 shrink-0 text-center text-[10px] font-semibold text-gray-300 sm:inline dark:text-gray-600"
         >
           #{{ history.length - index }}
         </span>
