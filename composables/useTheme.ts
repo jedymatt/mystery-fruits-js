@@ -7,7 +7,7 @@ export function useTheme() {
 
   // Only access localStorage on client
   onMounted(() => {
-    if (process.client) {
+    if (import.meta.client) {
       const saved = localStorage.getItem('theme')
       if (saved === 'dark' || saved === 'light') {
         theme.value = saved
@@ -18,7 +18,7 @@ export function useTheme() {
 
   // Persist theme changes
   watch(theme, (newTheme) => {
-    if (process.client) {
+    if (import.meta.client) {
       localStorage.setItem('theme', newTheme)
       document.documentElement.classList.toggle('dark', newTheme === 'dark')
     }

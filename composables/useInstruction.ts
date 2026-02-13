@@ -7,7 +7,7 @@ export function useInstruction() {
   const isVisible = ref(true)
 
   onMounted(() => {
-    if (process.client) {
+    if (import.meta.client) {
       const stored = localStorage.getItem(STORAGE_KEY)
       if (stored) {
         const dismissedDate = new Date(stored)
@@ -20,7 +20,7 @@ export function useInstruction() {
   })
 
   function dismiss() {
-    if (process.client) {
+    if (import.meta.client) {
       const now = new Date().toISOString()
       localStorage.setItem(STORAGE_KEY, now)
       isVisible.value = false
