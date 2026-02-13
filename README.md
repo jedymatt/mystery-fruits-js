@@ -1,75 +1,79 @@
-# Nuxt Minimal Starter
+# mystery-fruits-nuxt
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+---
 
-## Setup
+## Open for suggestions and improvements so don't hesitate to create an issue or pull request
 
-Make sure to install dependencies:
+---
 
-```bash
-# npm
-npm install
+A Vue 3 guessing game built with Nuxt 3 where players identify 3 hidden fruits in the correct order within 6 attempts. Deployed as a static site using Nuxt's Static Site Generation (SSG).
 
-# pnpm
+## Tech Stack
+
+- **Framework:** Nuxt 3 (with Vue 3)
+- **Styling:** Tailwind CSS v4
+- **Icons:** Lucide Vue Next
+- **Rendering:** Static Site Generation (SSG)
+- **Package Manager:** pnpm
+
+## Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+
+## Customize configuration
+
+See [Nuxt Configuration Reference](https://nuxt.com/docs/api/configuration/nuxt-config).
+
+## Project Setup
+
+```sh
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+### Development Server
 
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
+```sh
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+Starts the Nuxt development server at http://localhost:3000
 
-Build the application for production:
+### Build for Production
 
-```bash
-# npm
-npm run build
-
-# pnpm
+```sh
 pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+Generates static site in `.output/public/` directory. All routes are pre-rendered at build time.
 
-```bash
-# npm
-npm run preview
+### Preview Production Build
 
-# pnpm
+```sh
 pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Preview the production build locally.
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+pnpm lint
+```
+
+## Features
+
+- **File-based routing:** Pages automatically generate routes (no Vue Router config needed)
+- **Auto-imports:** Components and composables are automatically imported
+- **SSG deployment:** All pages pre-rendered for optimal performance
+- **Clean URLs:** No hash routing - proper URLs for SEO
+- **Dark mode:** Theme toggle with localStorage persistence
+- **Responsive design:** Mobile-friendly layout
+
+## Deployment
+
+This project uses Nuxt Static Site Generation (SSG). Deploy the `.output/public/` directory to any static hosting service:
+
+- Vercel (recommended - auto-detects Nuxt)
+- Netlify
+- GitHub Pages
+- Cloudflare Pages
