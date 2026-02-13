@@ -19,11 +19,11 @@ const fruits: string[] = [
 ];
 
 export function shuffleArray<T>(array: T[]): T[] {
-  const copiedArray = array.slice(0);
+  const copiedArray = [...array];
   for (let i = copiedArray.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    const temp = copiedArray[i];
-    copiedArray[i] = copiedArray[j];
+    const temp = copiedArray[i]!;
+    copiedArray[i] = copiedArray[j]!;
     copiedArray[j] = temp;
   }
 
