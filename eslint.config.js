@@ -21,9 +21,20 @@ export default [
       parserOptions: {
         parser: tseslint.parser,
       },
+      globals: {
+        // Nuxt auto-imports
+        useFruits: 'readonly',
+        useHistory: 'readonly',
+        useInstruction: 'readonly',
+        useTheme: 'readonly',
+      },
+    },
+    rules: {
+      // Disable multi-word component names for Nuxt pages/layouts
+      'vue/multi-word-component-names': 'off',
     },
   },
   {
-    ignores: ['dist/'],
+    ignores: ['dist/', '.nuxt/', '.output/'],
   },
 ]

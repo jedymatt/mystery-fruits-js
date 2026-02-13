@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Check, ArrowRightLeft } from 'lucide-vue-next';
-import type { HistoryItem } from '@/composables/history';
+import type { HistoryItem } from '@/composables/useHistory';
 
 withDefaults(defineProps<{
   history?: HistoryItem[];

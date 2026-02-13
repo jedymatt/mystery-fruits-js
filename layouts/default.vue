@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { Github, Moon, Sun } from 'lucide-vue-next';
-import { useTheme } from '@/composables/common';
 
-const { toggleDarkMode } = useTheme();
+const { toggleTheme } = useTheme();
 </script>
 
 <template>
@@ -35,7 +34,7 @@ const { toggleDarkMode } = useTheme();
         >
           <Github class="h-4.5 w-4.5" />
         </IconButton>
-        <IconButton @click="toggleDarkMode()">
+        <IconButton @click="toggleTheme()">
           <Moon class="block h-4.5 w-4.5 dark:hidden" />
           <Sun class="hidden h-4.5 w-4.5 dark:block" />
         </IconButton>
