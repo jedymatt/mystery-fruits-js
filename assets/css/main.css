@@ -1,0 +1,114 @@
+@import url('https://rsms.me/inter/inter.css');
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter var', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --animate-slide-in: slide-in 1s ease 0s 1 normal forwards;
+  --animate-close-section: close-section 1s ease 0s 1 normal forwards;
+  --animate-badge-pop: badge-pop 0.2s ease-out;
+  --animate-game-over-enter: game-over-enter 0.5s ease-out;
+  --animate-fruit-reveal: fruit-reveal 0.4s ease-out both;
+  --animate-winner-pulse: winner-pulse 2s ease-in-out infinite;
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes close-section {
+  0% {
+    height: auto;
+    opacity: 1;
+    margin-bottom: 40px;
+    padding: 28px;
+  }
+  100% {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    margin-bottom: 0;
+  }
+}
+
+@keyframes badge-pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes game-over-enter {
+  0% {
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fruit-reveal {
+  0% {
+    transform: translateY(10px) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes winner-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px 8px rgba(251, 191, 36, 0.3);
+  }
+}
+
+@layer base {
+  h1 {
+    @apply text-3xl font-bold;
+  }
+
+  h2 {
+    @apply text-2xl font-bold;
+  }
+
+  h3 {
+    @apply text-xl font-bold;
+  }
+
+  h4 {
+    @apply text-lg font-bold;
+  }
+
+  h5 {
+    @apply text-base font-bold;
+  }
+
+  h6 {
+    @apply text-sm font-bold;
+  }
+}

@@ -23,6 +23,9 @@ export default defineNuxtConfig({
     ]
   },
 
+  // Global CSS
+  css: ['~/assets/css/main.css'],
+
   // TypeScript
   typescript: {
     strict: true,
