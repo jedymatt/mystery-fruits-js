@@ -3,11 +3,12 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "build": "nuxt build",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "generate": "nuxt generate",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint --fix ."
   },
   "dependencies": {
     "date-fns": "^4.1.0",
